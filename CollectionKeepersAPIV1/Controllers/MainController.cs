@@ -7,6 +7,7 @@ namespace CollectionKeepersAPIV1.Controllers
     [ApiController]
     public class MainController : ControllerBase
     {
+
         [HttpGet(nameof(CheckIfOnline))]
         public async Task<ActionResult<string>> CheckIfOnline()
         {

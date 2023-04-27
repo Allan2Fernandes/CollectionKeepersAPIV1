@@ -6,12 +6,9 @@ namespace CollectionKeepersAPIV1.Models;
 
 public partial class CollectionsDbContext : DbContext
 {
-  
     public CollectionsDbContext()
     {
     }
-
-
 
     public CollectionsDbContext(DbContextOptions<CollectionsDbContext> options)
         : base(options)
@@ -28,13 +25,12 @@ public partial class CollectionsDbContext : DbContext
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
-    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblAttribute>(entity =>
         {
-            entity.HasKey(e => e.FldAttributeId).HasName("PK__tbl_Attr__F63C1BA1AA4B6C58");
+            entity.HasKey(e => e.FldAttributeId).HasName("PK__tbl_Attr__F63C1BA1BE7D52A8");
 
             entity.ToTable("tbl_Attributes");
 
@@ -51,7 +47,7 @@ public partial class CollectionsDbContext : DbContext
 
         modelBuilder.Entity<TblAttributeValue>(entity =>
         {
-            entity.HasKey(e => e.FldAttributeValueId).HasName("PK__tbl_Attr__E53410CD25F0CD86");
+            entity.HasKey(e => e.FldAttributeValueId).HasName("PK__tbl_Attr__E53410CD5D69C496");
 
             entity.ToTable("tbl_AttributeValue");
 
@@ -69,7 +65,7 @@ public partial class CollectionsDbContext : DbContext
 
         modelBuilder.Entity<TblCollection>(entity =>
         {
-            entity.HasKey(e => e.FldCollectionId).HasName("PK__tbl_Coll__B1FC26F92A81FA9B");
+            entity.HasKey(e => e.FldCollectionId).HasName("PK__tbl_Coll__B1FC26F99664E763");
 
             entity.ToTable("tbl_Collection");
 
@@ -80,6 +76,9 @@ public partial class CollectionsDbContext : DbContext
             entity.Property(e => e.FldCollectionName)
                 .HasMaxLength(30)
                 .HasColumnName("fld_CollectionName");
+            entity.Property(e => e.FldCollectionThumbnail)
+                .HasMaxLength(500)
+                .HasColumnName("fld_CollectionThumbnail");
             entity.Property(e => e.FldUserId).HasColumnName("fld_UserID");
 
             entity.HasOne(d => d.FldUser).WithMany(p => p.TblCollections)
@@ -89,7 +88,7 @@ public partial class CollectionsDbContext : DbContext
 
         modelBuilder.Entity<TblCollectionEntry>(entity =>
         {
-            entity.HasKey(e => e.FldCollectionEntryId).HasName("PK__tbl_Coll__802C2EB2630BC54D");
+            entity.HasKey(e => e.FldCollectionEntryId).HasName("PK__tbl_Coll__802C2EB2DE2F562D");
 
             entity.ToTable("tbl_CollectionEntry");
 
@@ -98,7 +97,7 @@ public partial class CollectionsDbContext : DbContext
 
         modelBuilder.Entity<TblUser>(entity =>
         {
-            entity.HasKey(e => e.FldUserId).HasName("PK__tbl_User__C851D2E6241CEBE4");
+            entity.HasKey(e => e.FldUserId).HasName("PK__tbl_User__C851D2E6F0A64D0C");
 
             entity.ToTable("tbl_User");
 

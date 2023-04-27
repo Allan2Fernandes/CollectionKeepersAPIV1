@@ -13,6 +13,8 @@ public partial class TblCollection
 
     public string? FldCollectionDescription { get; set; }
 
+    public string? FldCollectionThumbnail { get; set; }
+
     public virtual TblUser? FldUser { get; set; }
 
     public virtual ICollection<TblAttribute> TblAttributes { get; set; } = new List<TblAttribute>();
