@@ -98,6 +98,8 @@ namespace CollectionKeepersAPIV1.Controllers
             SearchedCollection.FldCollectionDescription = CollectionToUpdate.FldCollectionDescription;
             SearchedCollection.FldCollectionThumbnail = CollectionToUpdate.FldCollectionThumbnail;
             SearchedCollection.FldIsPrivate= CollectionToUpdate.FldIsPrivate;
+            
+            await ctx.SaveChangesAsync();
 
             return Ok("Collection was updated");
         }
