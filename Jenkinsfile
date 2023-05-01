@@ -33,7 +33,8 @@ pipeline {
 
 				sh 'docker build . -t ckbackend'
 
-				
+				sh 'docker build db -t database'
+
 				sh 'docker compose up -d'
 
 

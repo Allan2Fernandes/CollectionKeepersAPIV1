@@ -1,7 +1,7 @@
 version: "2"
 services:
     databases:
-        image: 'mcr.microsoft.com/mssql/server:2019-latest'
+        image: database
         networks:
             - wheel
         ports:
@@ -11,6 +11,7 @@ services:
             - MSSQL_SA_PASSWORD=EasvEasv123!
             - MSSQL_PID=Express
             - MSSQL_DATABASE=CollectionsDB
+        
     API:
         image: ckbackend
         networks:
