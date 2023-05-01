@@ -13,4 +13,4 @@ ENV MSSQL_TCP_PORT 1433
 EXPOSE 1433
 
 # Run Microsoft SQL Server and initialization script (at the same time)
-CMD /bin/bash ./initScripts/entrypoint.sh
+CMD /bin/bash ./entrypoint.sh
