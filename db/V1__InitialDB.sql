@@ -1,7 +1,14 @@
---CREATE DATABASE CollectionsDB;
---GO
 
-USE CollectionsDB;
+IF NOT EXISTS(SELECT name FROM sys.databases WHERE name = 'CollectionsDB')
+    BEGIN
+        CREATE DATABASE CollectionsDB
+    END
+
+GO
+
+Use CollectionsDB;
+
+GO
 
 CREATE TABLE tbl_User(
     fld_UserID INT PRIMARY KEY IDENTITY,
