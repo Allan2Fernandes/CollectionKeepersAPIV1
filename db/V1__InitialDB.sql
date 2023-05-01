@@ -1,5 +1,5 @@
-CREATE DATABASE CollectionsDB;
-GO
+--CREATE DATABASE CollectionsDB;
+--GO
 
 USE CollectionsDB;
 

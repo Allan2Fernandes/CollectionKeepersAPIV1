@@ -10,6 +10,7 @@ services:
             - ACCEPT_EULA=Y
             - MSSQL_SA_PASSWORD=EasvEasv123!
             - MSSQL_PID=Express
+            - MSSQL_DATABASE=CollectionsDB
     API:
         image: ckbackend
         networks:
