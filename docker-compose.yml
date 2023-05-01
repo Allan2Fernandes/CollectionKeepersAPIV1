@@ -2,6 +2,7 @@ version: "2"
 services:
     databases:
         image: mcr.microsoft.com/mssql/server:2019-latest
+        command: /bin/bash ./entrypoint.sh
         networks:
             - wheel
         ports:
