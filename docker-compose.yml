@@ -22,8 +22,8 @@ services:
         image: flyway/flyway:latest
         command: ["migrate"]
         volumes:
-            - ./sql:/flyway/sql
-            - ./conf:/flyway/conf
+            - ./db:/flyway/sql
+            - ./db:/flyway/conf
         depends_on:
             - databases
 networks:

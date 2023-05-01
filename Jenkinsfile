@@ -25,12 +25,16 @@ pipeline {
 		stage('Deploy') {
 			steps {   
 				echo 'Deploying ...'
+
+				sh 'docker compose down'
 				
 				sh 'rm -rf CollectionKeepersAPIV1/appsettings.*'
 				sh 'cp ~/cred2/* CollectionKeepersAPIV1'
 
 				sh 'docker build . -t ckbackend'
 				sh 'docker compose up -d'
+
+
 				}
 			}
 		}
