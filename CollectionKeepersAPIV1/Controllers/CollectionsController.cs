@@ -62,6 +62,21 @@ namespace CollectionKeepersAPIV1.Controllers
         }
 
 
+        [HttpPost(nameof(GetUsersCollection))]
+        public async Task<ActionResult<List<TblCollection>>> GetUsersCollection(GetRandomItemCollectionsDTO InputDetails)
+        {
+            Random rand = new Random();
+
+            //Query the DB for all the collections for that user
+            List<TblCollection> Collections = await ctx.TblCollections.Where(Collection => Collection.FldUserId == InputDetails.FldUserId).ToListAsync();
+
+            List<TblCollection> RandomisedList = new List<TblCollection>();
+    
+            RandomisedList = Collections.Take(InputDetails.NumberRandomCollections).ToList();
+            return Ok(RandomisedList);
+        }
+
+
         [HttpGet(nameof(GetAnotherUsersPublicCollection) + "/UserID")]
         public async Task<ActionResult<List<TblCollection>>> GetAnotherUsersPublicCollection(int UserID)
         {

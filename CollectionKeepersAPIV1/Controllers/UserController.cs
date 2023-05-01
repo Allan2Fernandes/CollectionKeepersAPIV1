@@ -66,7 +66,7 @@ namespace CollectionKeepersAPIV1.Controllers
 
             if(Password == QueriedUser.FldPassword)
             {
-                return Ok("Successfully Logged in");
+                return Ok(QueriedUser);
             }
             else
             {
