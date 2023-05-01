@@ -12,7 +12,6 @@ services:
             - MSSQL_PID=Express
             - MSSQL_DATABASE=CollectionsDB
         volumes:
-            - dbdata:/var/opt/mssql/data
             - ./db/mssql/docker-entrypoint.sh:/entrypoint.sh
             - ./db/mssql/docker-db-init.sh:/db-init.sh
             - ./db/mssql/mssql-cars.sql:/db-init.sql
