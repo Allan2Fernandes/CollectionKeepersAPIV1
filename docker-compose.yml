@@ -13,9 +13,9 @@ services:
             - MSSQL_PID=Express
             - MSSQL_DATABASE=CollectionsDB
         volumes:
-            - ./db2/docker-entrypoint.sh:/entrypoint.sh
-            - ./db2/docker-db-init.sh:/db-init.sh
-            - ./db2/db-init.sql:/db-init.sql
+            - ./db3/docker-entrypoint.sh:/entrypoint.sh
+            - ./db3/docker-db-init.sh:/db-init.sh
+            - ./db3/db-init.sql:/db-init.sql
         
     API:
         image: ckbackend
