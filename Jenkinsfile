@@ -31,10 +31,9 @@ pipeline {
 				sh 'rm -rf CollectionKeepersAPIV1/appsettings.*'
 				sh 'cp ~/cred2/* CollectionKeepersAPIV1'
 
+				sh 'chmod 775 -R db/'
 				sh 'docker build db -t database'
-
-				sh 'docker build . -t ckbackend'				
-
+				sh 'docker build . -t ckbackend'
 				sh 'docker compose up -d'
 
 

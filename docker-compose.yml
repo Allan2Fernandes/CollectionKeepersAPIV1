@@ -1,8 +1,8 @@
 version: "2"
 services:
     databases:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        command: /bin/bash ./entrypoint.sh
+        image: database
+       
         networks:
             - wheel
         ports:
@@ -12,10 +12,6 @@ services:
             - MSSQL_SA_PASSWORD=EasvEasv123!
             - MSSQL_PID=Express
             - MSSQL_DATABASE=CollectionsDB
-        volumes:
-            - ./db3/docker-entrypoint.sh:/entrypoint.sh
-            - ./db3/docker-db-init.sh:/db-init.sh
-            - ./db3/db-init.sql:/db-init.sql
         
     API:
         image: ckbackend
