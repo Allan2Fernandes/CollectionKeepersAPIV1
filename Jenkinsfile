@@ -32,6 +32,8 @@ pipeline {
 				sh 'cp ~/cred2/* CollectionKeepersAPIV1'
 
 				sh 'docker build . -t ckbackend'
+
+				
 				sh 'docker compose up -d'
 
 
