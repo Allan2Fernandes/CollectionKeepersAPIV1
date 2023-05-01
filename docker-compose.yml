@@ -18,6 +18,14 @@ services:
             - '5001:80'
         depends_on:
             - databases
+    flyway:
+        image: flyway/flyway:latest
+        command: ["migrate"]
+        volumes:
+            - ./sql:/flyway/sql
+            - ./conf:/flyway/conf
+        depends_on:
+            - databases
 networks:
     wheel: 
         driver: bridge
