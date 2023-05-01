@@ -1,1 +1,2 @@
-CREATE DATABASE CollectionsDB
+CREATE DATABASE CollectionsDB;
+GO

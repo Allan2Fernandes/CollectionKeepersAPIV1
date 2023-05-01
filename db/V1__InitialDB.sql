@@ -1,11 +1,3 @@
-
---IF NOT EXISTS(SELECT name FROM sys.databases WHERE name = 'CollectionsDB')
-  --  BEGIN
-    --    CREATE DATABASE CollectionsDB
-    --END
-
---GO
-
 Use CollectionsDB;
 
 GO
