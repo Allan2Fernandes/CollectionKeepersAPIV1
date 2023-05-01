@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/mssql/server:2019-latest
 
 # Copy initialization scripts
-COPY /initScripts /  
+COPY /initScripts/* /
 
 # Set environment variables
 ENV SA_PASSWORD EasvEasv123! 
