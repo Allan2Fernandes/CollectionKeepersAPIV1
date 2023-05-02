@@ -1,3 +1,6 @@
+using System.Reflection.Metadata.Ecma335;
+using CollectionKeepersAPIV1.Functions;
+
 namespace XUnitTestProject
 {
     public class UnitTest1
@@ -14,6 +17,14 @@ namespace XUnitTestProject
 
             // Assert
             Assert.Equal(12, result);
+        }
+
+        [Fact]
+        public void Test2()
+        {
+            int a = 0;
+            int b = Functions.TestFunction();
+            Assert.Equal(a, b);
         }
     }
 }
