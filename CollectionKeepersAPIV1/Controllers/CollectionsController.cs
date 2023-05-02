@@ -57,7 +57,6 @@ namespace CollectionKeepersAPIV1.Controllers
             }
             */
             RandomisedList = Collections.Take(InputDetails.NumberRandomCollections).ToList();
-
             return Ok(RandomisedList);
         }
 

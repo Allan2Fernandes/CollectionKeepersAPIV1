@@ -17,7 +17,11 @@ pipeline {
 		
 		stage('Test') {
             steps {
-                echo 'Testing..'				
+                echo 'Testing..'	
+				sh 'dotnet test'
+				dir('XUnitTestProject'){
+					
+				}
             }			
 			
         }
