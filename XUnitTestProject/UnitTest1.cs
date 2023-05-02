@@ -15,5 +15,19 @@ namespace XUnitTestProject
             // Assert
             Assert.Equal(12, result);
         }
+
+        [Fact]
+        public void Test2()
+        {
+            // Arrange
+            int a = 5;
+            int b = 7;
+
+            // Act
+            int result = a + b;
+
+            // Assert
+            Assert.NotEqual(12, result);
+        }
     }
 }
