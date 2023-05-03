@@ -1,7 +1,9 @@
-﻿using CollectionKeepersAPIV1.Models;
+﻿using CollectionKeepersAPIV1.Controllers.ControllerLogic;
+using CollectionKeepersAPIV1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CollectionKeepersAPIV1.Controllers
@@ -10,68 +12,32 @@ namespace CollectionKeepersAPIV1.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        CollectionsDbContext ctx; 
-
+        CollectionsDbContext ctx;
+        UserControllerLogic UserControllerLogic;
 
         public UserController(CollectionsDbContext context) 
         { 
             ctx = context;
+            UserControllerLogic = new UserControllerLogic(ctx);
         }
 
         [HttpGet(nameof(GetAllUsers))]
         public async Task<ActionResult<List<TblUser>>> GetAllUsers()
-        {
-            List<TblUser> users = ctx.TblUsers.ToList();    
-            return Ok(users);
+        {            
+            return Ok(UserControllerLogic.GetAllUsers());
         }
 
         [HttpPost(nameof(CreateNewUser))]
         public async Task<ActionResult<string>> CreateNewUser(TblUser NewUser)
         {
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            if(!Regex.IsMatch(NewUser.FldEmail, emailPattern))
-            {
-                return Ok("Invalid email");
-            }
-            string Email = NewUser.FldEmail;
-
-            //TODO: Check that the email id doesn't already exist in the db before adding a new user with that email
-            List<TblUser> QueriedUsers = await ctx.TblUsers.Where(User => User.FldEmail == Email).ToListAsync();
-
-            if(QueriedUsers.Count != 0)
-            {
-                return Ok("Email ID already in DB");
-            }
-
-            await ctx.TblUsers.AddAsync(NewUser);
-            await ctx.SaveChangesAsync();
-            return Ok("NewUser Posted");
+            
+            return Ok(UserControllerLogic.CreateNewUser(NewUser));
         }
 
         [HttpPost(nameof(Login))]
         public async Task<ActionResult<string>> Login(TblUser User)
         {
-            string Email = User.FldEmail;
-            string Password = User.FldPassword;
-            string ErrorMessage = "Invalid credentials entered";
-
-            List<TblUser> QueriedUsers = await ctx.TblUsers.Where(User => User.FldEmail == Email).ToListAsync();
-
-            if(QueriedUsers.Count == 0)
-            {
-                return Ok(ErrorMessage);
-            }
-
-            TblUser QueriedUser = QueriedUsers.First();
-
-            if(Password == QueriedUser.FldPassword)
-            {
-                return Ok(QueriedUser);
-            }
-            else
-            {
-                return Ok(ErrorMessage);
-            }
+            return Ok(UserControllerLogic.Login(User));
         }
 
         [HttpPut(nameof(UpdateUser))]
@@ -107,6 +73,17 @@ namespace CollectionKeepersAPIV1.Controllers
             {
                 return Ok("Account not found");
             }
+
+            //Find all the Collections
+            List<TblCollection> ConnectedCollections = await ctx.TblCollections.Where(row => row.FldUserId == UserID).ToListAsync();
+
+            //Find all the attributes
+            //List<TblAttribute> ConnectedAttributes = await ctx.TblAttributes.Where(row => ConnectedCollections.Contains(ConnectedCollections.Select(row => row.FldCollectionId == ))).ToListAsync();
+
+            //Find all the attribute values
+
+            //Find all the collection entries
+
 
             TblUser FoundUser = QueriedAccounts.First();
 

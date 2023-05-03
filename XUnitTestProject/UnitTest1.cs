@@ -1,5 +1,13 @@
+using System.Net.Sockets;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
+using Castle.Core.Resource;
+using CollectionKeepersAPIV1.Controllers.ControllerLogic;
 using CollectionKeepersAPIV1.Functions;
+using CollectionKeepersAPIV1.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Moq;
 
 namespace XUnitTestProject
 {
@@ -76,5 +84,40 @@ namespace XUnitTestProject
             Assert.Equal(a, Functions.TestFunction48());
             Assert.Equal(a, Functions.TestFunction49());
         }
+
+        
+        [Fact]
+        public void dbTest1()
+        {
+            var MockSet = new Mock<DbSet<TblUser>>();
+            var MockContext = new Mock<CollectionsDbContext>();
+
+            var data = new List<TblUser>
+            {
+                new TblUser
+                {
+                    FldUsername = "Test",
+                    FldPassword = "123456",
+                    FldEmail = "Test@mail.com",
+                }
+            }.AsQueryable();
+
+            MockContext.Setup(m => m.TblUsers).Returns(MockSet.Object);           
+
+            MockSet.As<IQueryable<TblUser>>().Setup(m => m.Provider).Returns(data.Provider);
+            MockSet.As<IQueryable<TblUser>>().Setup(m => m.Expression).Returns(data.Expression);
+            MockSet.As<IQueryable<TblUser>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            MockSet.As<IQueryable<TblUser>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            var service = new UserControllerLogic(MockContext.Object);
+            List<TblUser> AllUsers = service.GetAllUsers();
+            Assert.Equal(1, AllUsers.Count);
+            Assert.Equal("123456", AllUsers[0].FldPassword);         
+
+            Assert.Equal(6, 6);
+        }
+
+
+
     }
 }

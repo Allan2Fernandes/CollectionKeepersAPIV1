@@ -131,6 +131,21 @@ namespace CollectionKeepersAPIV1.Controllers
 
             TblCollection FoundCollection = ListOfQueriedCollections.First();
 
+            //Find all Attribute values
+            //Find all CollectionEntries
+
+            //Find all the Attributes in this collection and delete it
+            List<TblAttribute> ListOfConnectedAttributes = await ctx.TblAttributes.Where(row => row.FldCollectionId == CollectionID).ToListAsync();
+
+            //Remove the collection entries
+            //Remove the attribute values
+
+
+            //Remove the attributes
+            ctx.TblAttributes.RemoveRange(ListOfConnectedAttributes);
+            await ctx.SaveChangesAsync();
+
+            //Finally remove the collection
             ctx.TblCollections.Remove(FoundCollection);
             await ctx.SaveChangesAsync();
 
