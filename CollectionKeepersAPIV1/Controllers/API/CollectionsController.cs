@@ -131,15 +131,25 @@ namespace CollectionKeepersAPIV1.Controllers
 
             TblCollection FoundCollection = ListOfQueriedCollections.First();
 
-            //Find all Attribute values
-            //Find all CollectionEntries
-
             //Find all the Attributes in this collection and delete it
             List<TblAttribute> ListOfConnectedAttributes = await ctx.TblAttributes.Where(row => row.FldCollectionId == CollectionID).ToListAsync();
+            List<int> ListOfConnectedAttributeIDs = ListOfConnectedAttributes.Select(row => row.FldAttributeId).ToList();
+            //Find all Attribute values
+            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfConnectedAttributeIDs.Contains((int)row.FldAttributeValueId)).ToListAsync();
+            List<int> ListOfConnectionAttributeValueIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
+            //Find all CollectionEntries
+            List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfConnectionAttributeValueIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
+
+
+     
+
+            //Remove the attribute values
+            ctx.TblAttributeValues.RemoveRange(ConnectedAttributeValues);
+            await ctx.SaveChangesAsync();
 
             //Remove the collection entries
-            //Remove the attribute values
-
+            ctx.TblCollectionEntries.RemoveRange(ConnectedCollectionEntries);
+            await ctx.SaveChangesAsync();
 
             //Remove the attributes
             ctx.TblAttributes.RemoveRange(ListOfConnectedAttributes);

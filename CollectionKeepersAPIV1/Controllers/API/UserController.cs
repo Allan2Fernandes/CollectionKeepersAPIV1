@@ -76,14 +76,29 @@ namespace CollectionKeepersAPIV1.Controllers
 
             //Find all the Collections
             List<TblCollection> ConnectedCollections = await ctx.TblCollections.Where(row => row.FldUserId == UserID).ToListAsync();
-
+            List<int> ListOfCollectionIDs = ConnectedCollections.Select(row => row.FldCollectionId).ToList();
             //Find all the attributes
-            //List<TblAttribute> ConnectedAttributes = await ctx.TblAttributes.Where(row => ConnectedCollections.Contains(ConnectedCollections.Select(row => row.FldCollectionId == ))).ToListAsync();
-
+            List<TblAttribute> ConnectedAttributes = await ctx.TblAttributes.Where(row => ListOfCollectionIDs.Contains((int)row.FldCollectionId)).ToListAsync();
+            List<int> ListOfAttributeIDs = ConnectedAttributes.Select(row => row.FldAttributeId).ToList();
             //Find all the attribute values
-
+            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfAttributeIDs.Contains((int)row.FldAttributeValueId)).ToListAsync();  
+            List<int> ListOfDistinctCollectionEntryIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
             //Find all the collection entries
+            List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfDistinctCollectionEntryIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
 
+            
+
+            ctx.TblAttributeValues.RemoveRange(ConnectedAttributeValues);
+            await ctx.SaveChangesAsync();
+
+            ctx.TblCollectionEntries.RemoveRange(ConnectedCollectionEntries);
+            await ctx.SaveChangesAsync();
+
+            ctx.TblAttributes.RemoveRange(ConnectedAttributes);
+            await ctx.SaveChangesAsync();
+
+            ctx.TblCollections.RemoveRange(ConnectedCollections);
+            await ctx.SaveChangesAsync();
 
             TblUser FoundUser = QueriedAccounts.First();
 
