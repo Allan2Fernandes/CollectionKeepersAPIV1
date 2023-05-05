@@ -11,19 +11,6 @@ namespace CollectionKeepersAPIV1.Controllers.API
     public class AttributeController : ControllerBase
     {
 
-        /*
-         public partial class TblAttribute
-{
-    public int FldAttributeId { get; set; }
-
-    public int? FldCollectionId { get; set; }
-
-    public string? FldAttributeName { get; set; }
-
-    public virtual TblCollection? FldCollection { get; set; }
-}
-         */
-
         CollectionsDbContext ctx = new CollectionsDbContext();
 
         public AttributeController(CollectionsDbContext ctx) 
