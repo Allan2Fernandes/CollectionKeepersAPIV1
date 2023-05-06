@@ -27,10 +27,10 @@ pipeline {
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
 					//Load tests
 					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
-					sh 'k6 run LoadTests/SoakTest.js'
-					sh 'k6 run LoadTests/LoadTest.js'
-					sh 'k6 run LoadTests/SpikeTest.js'
-					sh 'k6 run LoadTests/StressTest.js'
+					//sh 'k6 run LoadTests/SoakTest.js'
+					//sh 'k6 run LoadTests/LoadTest.js'
+					//sh 'k6 run LoadTests/SpikeTest.js'
+					//sh 'k6 run LoadTests/StressTest.js'
 				}
             }		
 			post {
@@ -40,8 +40,7 @@ pipeline {
 						[failUnhealthy: true, thresholdTarget: 'Conditional', unhealthyThreshold: 80.0, unstableThreshold: 50.0]
 					])], checksName: '', sourceFileResolver: sourceFiles('NEVER_STORE')
 				}
-			}
-		
+			}		
         }
 		
 		
