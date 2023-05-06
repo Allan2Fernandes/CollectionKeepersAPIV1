@@ -58,8 +58,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             if(QueriedList.Count == 0)
             {
                 return Ok("Couldn't find the attribute to be modified");
-            }
-
+            }         
             //Check if the CollectionID is valid
             List<TblCollection> QueriedCollectionsList = await ctx.TblCollections.Where(row => row.FldCollectionId == NewAttribute.FldCollectionId).ToListAsync();
             if(QueriedCollectionsList.Count == 0)
@@ -92,7 +91,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             }
             TblAttribute AttributeToDelete = QueriedList.First();   
             ctx.TblAttributes.Remove(AttributeToDelete);
-            await ctx.SaveChangesAsync();
+            await ctx.SaveChangesAsync();          
             return Ok($"Attribute with the ID {AttributeID} was deleted");
         }
 

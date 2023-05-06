@@ -11,7 +11,7 @@ pipeline {
 		stage('Build') {
             steps {
                 echo 'Building..'
-		sh 'docker build . -t ckbackend'
+				sh 'docker build . -t ckbackend'
             }
         }
 		
@@ -20,11 +20,17 @@ pipeline {
                 echo 'Testing..'	
 				sh 'dotnet test'
 				dir('XUnitTestProject'){
+					//Unit tests
 					sh 'rm coverage.cobertura.xml'
 					sh 'dotnet add package coverlet.collector'
 					sh 'dotnet add package coverlet.msbuild'
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
-					sh 'k6 run --vus 15 --duration 10s LoadTests/K6Test.js'
+					//Load tests
+					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
+					sh 'k6 run LoadTests/SoakTest.js'
+					sh 'k6 run LoadTests/LoadTest.js'
+					sh 'k6 run LoadTests/SpikeTest.js'
+					sh 'k6 run LoadTests/StressTest.js'
 				}
             }		
 			post {

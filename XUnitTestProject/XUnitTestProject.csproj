@@ -30,4 +30,8 @@
     <ProjectReference Include="..\CollectionKeepersAPIV1\CollectionKeepersAPIV1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="K6Reports\" />
+  </ItemGroup>
+
 </Project>
