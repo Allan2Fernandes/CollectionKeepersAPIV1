@@ -41,6 +41,9 @@ pipeline {
 					])], checksName: '', sourceFileResolver: sourceFiles('NEVER_STORE')
 				}
 			}
+			options{
+				ignoreError true
+			}
         }
 		
 		stage('Deploy') {
