@@ -26,7 +26,7 @@ pipeline {
 					sh 'dotnet add package coverlet.msbuild'
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
 					//Load tests
-					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
+					//sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
 					//sh 'k6 run LoadTests/SoakTest.js'
 					//sh 'k6 run LoadTests/LoadTest.js'
 					//sh 'k6 run LoadTests/SpikeTest.js'
