@@ -21,7 +21,7 @@ pipeline {
 				sh 'dotnet test'
 				dir('XUnitTestProject'){
 					//Unit tests
-					sh 'rm coverage.cobertura.xml'
+					sh 'rm -rf coverage.cobertura.xml'
 					sh 'dotnet add package coverlet.collector'
 					sh 'dotnet add package coverlet.msbuild'
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
