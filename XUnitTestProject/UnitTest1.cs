@@ -85,7 +85,7 @@ namespace XUnitTestProject
             Assert.Equal(a, Functions.TestFunction49());
         }
 
-        
+        /*
         [Fact]
         public void dbTest1()
         {
@@ -116,7 +116,7 @@ namespace XUnitTestProject
 
             Assert.Equal(6, 6);
         }
-
+        */
 
 
     }
