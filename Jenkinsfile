@@ -14,7 +14,7 @@ pipeline {
 				sh 'docker build . -t ckbackend'
             }
         }
-		/*
+		
 		stage('Test') {
             steps {
                 echo 'Testing..'	
@@ -43,7 +43,7 @@ pipeline {
 			}
 		
         }
-		*/
+		
 		
 		stage('Deploy') {
 			steps {   
