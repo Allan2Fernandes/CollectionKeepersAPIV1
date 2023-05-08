@@ -35,7 +35,8 @@ CREATE TABLE tbl_AttributeValue(
     fld_AttributeID INT,
     fld_Value NVARCHAR(100),
     fld_CollectionEntryID INT,
-    FOREIGN KEY (fld_CollectionEntryID) REFERENCES tbl_CollectionEntry (fld_CollectionEntryID)
+    FOREIGN KEY (fld_CollectionEntryID) REFERENCES tbl_CollectionEntry (fld_CollectionEntryID),
+    FOREIGN KEY (fld_AttributeID) REFERENCES tbl_Attributes(fld_AttributeID)
 )
 
---Scaffold-DbContext "Server=51.75.69.121;database=CollectionsDB;user id=SA;password=EasvEasv123;trusted_connection=true;TrustServerCertificate=True;integrated security=false;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+--Scaffold-DbContext "Server=10.176.88.54;database=CollectionsDB;user id=sa;password=EasvEasv123!;trusted_connection=true;TrustServerCertificate=True;integrated security=false;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models

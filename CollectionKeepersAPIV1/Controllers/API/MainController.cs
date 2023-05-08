@@ -13,7 +13,5 @@ namespace CollectionKeepersAPIV1.Controllers
         {
             return Ok("Online");
         }
-
-
     }
 }

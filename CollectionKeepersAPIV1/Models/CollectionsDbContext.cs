@@ -15,6 +15,8 @@ public partial class CollectionsDbContext : DbContext
     {
     }
 
+    public virtual DbSet<FlywaySchemaHistory> FlywaySchemaHistories { get; set; }
+
     public virtual DbSet<TblAttribute> TblAttributes { get; set; }
 
     public virtual DbSet<TblAttributeValue> TblAttributeValues { get; set; }
@@ -25,13 +27,50 @@ public partial class CollectionsDbContext : DbContext
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
- 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=10.176.88.54;database=CollectionsDB;user id=sa;password=EasvEasv123!;trusted_connection=true;TrustServerCertificate=True;integrated security=false;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<FlywaySchemaHistory>(entity =>
+        {
+            entity.HasKey(e => e.InstalledRank).HasName("flyway_schema_history_pk");
+
+            entity.ToTable("flyway_schema_history");
+
+            entity.HasIndex(e => e.Success, "flyway_schema_history_s_idx");
+
+            entity.Property(e => e.InstalledRank)
+                .ValueGeneratedNever()
+                .HasColumnName("installed_rank");
+            entity.Property(e => e.Checksum).HasColumnName("checksum");
+            entity.Property(e => e.Description)
+                .HasMaxLength(200)
+                .HasColumnName("description");
+            entity.Property(e => e.ExecutionTime).HasColumnName("execution_time");
+            entity.Property(e => e.InstalledBy)
+                .HasMaxLength(100)
+                .HasColumnName("installed_by");
+            entity.Property(e => e.InstalledOn)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("installed_on");
+            entity.Property(e => e.Script)
+                .HasMaxLength(1000)
+                .HasColumnName("script");
+            entity.Property(e => e.Success).HasColumnName("success");
+            entity.Property(e => e.Type)
+                .HasMaxLength(20)
+                .HasColumnName("type");
+            entity.Property(e => e.Version)
+                .HasMaxLength(50)
+                .HasColumnName("version");
+        });
+
         modelBuilder.Entity<TblAttribute>(entity =>
         {
-            entity.HasKey(e => e.FldAttributeId).HasName("PK__tbl_Attr__F63C1BA14CF72464");
+            entity.HasKey(e => e.FldAttributeId).HasName("PK__tbl_Attr__F63C1BA198B67BB6");
 
             entity.ToTable("tbl_Attributes");
 
@@ -43,12 +82,12 @@ public partial class CollectionsDbContext : DbContext
 
             entity.HasOne(d => d.FldCollection).WithMany(p => p.TblAttributes)
                 .HasForeignKey(d => d.FldCollectionId)
-                .HasConstraintName("FK__tbl_Attri__fld_C__3E52440B");
+                .HasConstraintName("FK__tbl_Attri__fld_C__403A8C7D");
         });
 
         modelBuilder.Entity<TblAttributeValue>(entity =>
         {
-            entity.HasKey(e => e.FldAttributeValueId).HasName("PK__tbl_Attr__E53410CD41B95370");
+            entity.HasKey(e => e.FldAttributeValueId).HasName("PK__tbl_Attr__E53410CD314BEBA5");
 
             entity.ToTable("tbl_AttributeValue");
 
@@ -61,12 +100,12 @@ public partial class CollectionsDbContext : DbContext
 
             entity.HasOne(d => d.FldCollectionEntry).WithMany(p => p.TblAttributeValues)
                 .HasForeignKey(d => d.FldCollectionEntryId)
-                .HasConstraintName("FK__tbl_Attri__fld_C__412EB0B6");
+                .HasConstraintName("FK__tbl_Attri__fld_C__4316F928");
         });
 
         modelBuilder.Entity<TblCollection>(entity =>
         {
-            entity.HasKey(e => e.FldCollectionId).HasName("PK__tbl_Coll__B1FC26F9CA2EDC1D");
+            entity.HasKey(e => e.FldCollectionId).HasName("PK__tbl_Coll__B1FC26F95CECEFD7");
 
             entity.ToTable("tbl_Collection");
 
@@ -85,12 +124,12 @@ public partial class CollectionsDbContext : DbContext
 
             entity.HasOne(d => d.FldUser).WithMany(p => p.TblCollections)
                 .HasForeignKey(d => d.FldUserId)
-                .HasConstraintName("FK__tbl_Colle__fld_U__398D8EEE");
+                .HasConstraintName("FK__tbl_Colle__fld_U__3B75D760");
         });
 
         modelBuilder.Entity<TblCollectionEntry>(entity =>
         {
-            entity.HasKey(e => e.FldCollectionEntryId).HasName("PK__tbl_Coll__802C2EB200331EA7");
+            entity.HasKey(e => e.FldCollectionEntryId).HasName("PK__tbl_Coll__802C2EB21C1D9624");
 
             entity.ToTable("tbl_CollectionEntry");
 
@@ -99,7 +138,7 @@ public partial class CollectionsDbContext : DbContext
 
         modelBuilder.Entity<TblUser>(entity =>
         {
-            entity.HasKey(e => e.FldUserId).HasName("PK__tbl_User__C851D2E64D12E2DE");
+            entity.HasKey(e => e.FldUserId).HasName("PK__tbl_User__C851D2E690527E28");
 
             entity.ToTable("tbl_User");
 

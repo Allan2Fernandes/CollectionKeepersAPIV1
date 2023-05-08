@@ -88,8 +88,14 @@ namespace CollectionKeepersAPIV1.Controllers.API
             if(QueriedList.Count == 0)
             {
                 return Ok($"Attribute with the ID {AttributeID} not found");
-            }
-            TblAttribute AttributeToDelete = QueriedList.First();   
+            }           
+
+            TblAttribute AttributeToDelete = QueriedList.First();
+
+            //Find all the attribute values and with that attribute ID and remove them
+            List<TblAttributeValue> QueriedListOfAttributeValues = await ctx.TblAttributeValues.Where(row => row.FldAttributeId == AttributeToDelete.FldAttributeId).ToListAsync();
+            ctx.TblAttributeValues.RemoveRange(QueriedListOfAttributeValues);
+            await ctx.SaveChangesAsync();
             ctx.TblAttributes.Remove(AttributeToDelete);
             await ctx.SaveChangesAsync();          
             return Ok($"Attribute with the ID {AttributeID} was deleted");
