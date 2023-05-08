@@ -10,7 +10,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         // Add services to the container.
 
-        CreateHostBuilder(args).Build().Run();
+    
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -48,7 +48,7 @@ public class Program
         app.MapControllers();
 
         app.Run();
-        
+        CreateHostBuilder(args).Build().Run();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -61,9 +61,11 @@ public class Program
             .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
             {
                 IndexFormat = $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+                
                 AutoRegisterTemplate = true,
                 NumberOfShards = 2,
                 NumberOfReplicas = 1
+                
             })
             .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
             .ReadFrom.Configuration(context.Configuration);
