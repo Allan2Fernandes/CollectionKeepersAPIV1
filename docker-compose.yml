@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
     databases:
         image: database
@@ -30,42 +30,34 @@ services:
             - ./db:/flyway/sql
             - ./db:/flyway/conf
         depends_on:
-            - databases
-    
-    kib01:
-        image: docker.elastic.co/kibana/kibana:7.9.0
-        container_name: kb01
-        ports:
-            - 5601:5601
-        environment:
-            ELASTICSEARCH_URL: http://es01:9200
-            ELASTICSEARCH_HOSTS: http://es01:9200
-        networks:
-            - wheel
-        depends_on:
-            - API
-
+            - databases   
     es01:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
         container_name: es01
-        environment:
-            - node.name=es01
-            - cluster.name=es-docker-cluster
-            - cluster.initial_master_nodes=es01
-            - bootstrap.memory_lock=true
-            - "ES_JAVA_OPTS=-Xms512m -Xm512m"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        #volumes: 
-         #   - data01:/usr/share/elasticsearch/data
+    environment:  
+        - xpack.monitoring.enabled=true  
+        - xpack.watcher.enabled=false  
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  
+        - discovery.type=single-node  
+        volumes: 
+            - elasticsearch-data:/usr/share/elasticsearch/data
         ports:
             - 9200:9200
         networks:
             - wheel
         depends_on:
             - API
+    kib01:
+        image: docker.elastic.co/kibana/kibana:7.9.1
+        container_name: kb01
+        ports:
+            - 5601:5601
+        environment:
+            - ELASTICSEARCH_URL=http://localhost:9200  
+        networks:
+            - wheel
+        depends_on:
+            - es01
 networks:
     wheel: 
         driver: bridge
