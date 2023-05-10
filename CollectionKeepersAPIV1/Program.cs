@@ -24,12 +24,13 @@ public class Program
         });
 
         // ----- CORS -----
+        /*
         string policyName = "ANGRYGORILLA";
         builder.Services.AddCors(policy => policy.AddPolicy(policyName, corsPolicy => {
                 corsPolicy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             })
         );
-        /*
+        
         builder.Services.AddCors(policyBuilder => policyBuilder.AddDefaultPolicy(policy => {
                 policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             })
@@ -64,7 +65,7 @@ public class Program
         }
 
         //app.UseHttpsRedirection();
-        app.UseCors(policyName);
+        app.UseCors();
         app.UseAuthorization();
 
         app.MapControllers();
