@@ -34,6 +34,12 @@ public class Program
         using var log = new LoggerConfiguration() //new
             .WriteTo.Console()
             .WriteTo.File("./Serilogs/logs.txt")
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+            {
+                DetectElasticsearchVersion = false,
+                AutoRegisterTemplate = true,
+                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+            })
             .CreateLogger();
 
         Log.Logger = log; //new 
