@@ -31,33 +31,34 @@ services:
             - ./db:/flyway/conf
         depends_on:
             - databases   
-    es01:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-        container_name: es01
-        environment:  
-            - xpack.monitoring.enabled=true  
-            - xpack.watcher.enabled=false  
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  
-            - discovery.type=single-node  
-        volumes: 
-            - ElasticSearchData:/usr/share/elasticsearch/data
-        ports:
-            - 9200:9200
-        networks:
-            - wheel
-        depends_on:
-            - API
-    kib01:
-        image: docker.elastic.co/kibana/kibana:7.9.1
-        container_name: kb01
-        ports:
-            - 5601:5601
-        environment:
-            - ELASTICSEARCH_URL=http://localhost:9200  
-        networks:
-            - wheel
-        depends_on:
-            - es01
+    #
+    #es01:
+    #    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    #    container_name: es01
+    #    environment:  
+    #        - xpack.monitoring.enabled=true  
+    #        - xpack.watcher.enabled=false  
+    #        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  
+    #        - discovery.type=single-node  
+    #    volumes: 
+    #        - ElasticSearchData:/usr/share/elasticsearch/data
+    #    ports:
+    #        - 9200:9200
+    #    networks:
+    #        - wheel
+    #    depends_on:
+    #        - API
+    #kib01:
+    #    image: docker.elastic.co/kibana/kibana:7.9.1
+    #    container_name: kb01
+    #    ports:
+    #        - 5601:5601
+    #    environment:
+    #        - ELASTICSEARCH_URL=http://localhost:9200  
+    #    networks:
+    #        - wheel
+    #    depends_on:
+    #        - es01
 networks:
     wheel: 
         driver: bridge
