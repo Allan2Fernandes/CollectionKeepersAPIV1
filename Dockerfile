@@ -20,6 +20,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CollectionKeepersAPIV1.dll"]
-
-# Run Microsoft SQL Server and initialization script (at the same time)
-CMD /bin/bash ./entrypoint.sh
