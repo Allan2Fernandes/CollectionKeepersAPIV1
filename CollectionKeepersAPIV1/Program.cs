@@ -25,15 +25,11 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
-        builder.Services.AddCors(policyBuilder =>
-                   policyBuilder.AddDefaultPolicy(policy =>
-                   {
-                       policy.AllowAnyOrigin();
-                       policy.AllowAnyHeader();
-                       policy.AllowAnyMethod();
-                   }
-                   )
-               );
+        builder.Services.AddCors(policyBuilder => policyBuilder.AddDefaultPolicy(policy =>
+        {
+          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        }));
+
         using var log = new LoggerConfiguration() //new
             .WriteTo.Console()
             .WriteTo.File("./Serilogs/logs.txt")
@@ -62,7 +58,7 @@ public class Program
         }
 
         //app.UseHttpsRedirection();
-        //app.UseCors();
+        app.UseCors();
         app.UseAuthorization();
 
         app.MapControllers();
