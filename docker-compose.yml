@@ -21,6 +21,8 @@ services:
             - '5001:80'
         depends_on:
             - databases
+        environment:
+            - PORT=80
     flyway:    
         image: flyway/flyway:latest
         networks: 

@@ -1,4 +1,5 @@
 using CollectionKeepersAPIV1.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
@@ -17,6 +18,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+
+       
 
         builder.Services.AddDbContext<CollectionsDbContext>(options => {
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -46,8 +49,11 @@ public class Program
         log.Information("Done setting up serilog!"); //new
 
 
-        var app = builder.Build();
+        var port = Environment.GetEnvironmentVariable("PORT");
+        builder.WebHost.UseUrls("http://*:" + port);
 
+        var app = builder.Build();
+        
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -63,8 +69,6 @@ public class Program
 
         app.Run();
     }
-
-
 }
 
 

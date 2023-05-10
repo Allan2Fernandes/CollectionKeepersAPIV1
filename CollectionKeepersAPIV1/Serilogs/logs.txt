@@ -22,3 +22,4 @@
 2023-05-10 14:32:35.745 +02:00 [INF] API Online!!!
 2023-05-10 14:40:01.097 +02:00 [INF] Done setting up serilog!
 2023-05-10 14:40:06.430 +02:00 [INF] API Online!!!
+2023-05-10 14:58:32.526 +02:00 [INF] Done setting up serilog!
