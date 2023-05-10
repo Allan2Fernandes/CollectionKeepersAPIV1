@@ -1,0 +1,12 @@
+2023-05-10 14:02:07.173 +02:00 [INF] Done setting up serilog!
+2023-05-10 14:02:19.060 +02:00 [INF] Logging index model!
+2023-05-10 14:02:58.192 +02:00 [INF] Done setting up serilog!
+2023-05-10 14:03:39.365 +02:00 [INF] Done setting up serilog!
+2023-05-10 14:03:53.599 +02:00 [INF] API Online!!!
+2023-05-10 14:04:20.342 +02:00 [INF] Done setting up serilog!
+2023-05-10 14:04:26.714 +02:00 [INF] API Online!!!
+2023-05-10 14:04:26.935 +02:00 [INF] API Online!!!
+2023-05-10 14:04:27.188 +02:00 [INF] API Online!!!
+2023-05-10 14:04:27.436 +02:00 [INF] API Online!!!
+2023-05-10 14:04:27.710 +02:00 [INF] API Online!!!
+2023-05-10 14:04:27.961 +02:00 [INF] API Online!!!

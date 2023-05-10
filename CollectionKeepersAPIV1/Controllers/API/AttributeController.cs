@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 
 namespace CollectionKeepersAPIV1.Controllers.API
@@ -15,7 +16,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
 
         public AttributeController(CollectionsDbContext ctx) 
         {
-            this.ctx = ctx;
+            this.ctx = ctx;            
         }
 
         [HttpPost(nameof(CreateAttribute))]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CollectionKeepersAPIV1.Models;
 
@@ -13,5 +14,6 @@ public partial class TblAttributeValue
 
     public int? FldCollectionEntryId { get; set; }
 
+    [JsonIgnore]
     public virtual TblCollectionEntry? FldCollectionEntry { get; set; }
 }
