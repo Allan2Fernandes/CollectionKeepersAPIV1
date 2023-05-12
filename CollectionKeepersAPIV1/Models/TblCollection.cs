@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CollectionKeepersAPIV1.Models;
 
@@ -17,7 +18,9 @@ public partial class TblCollection
 
     public bool? FldIsPrivate { get; set; }
 
+    [JsonIgnore]
     public virtual TblUser? FldUser { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<TblAttribute> TblAttributes { get; set; } = new List<TblAttribute>();
 }

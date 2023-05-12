@@ -23,3 +23,22 @@
 2023-05-10 14:40:01.097 +02:00 [INF] Done setting up serilog!
 2023-05-10 14:40:06.430 +02:00 [INF] API Online!!!
 2023-05-10 14:58:32.526 +02:00 [INF] Done setting up serilog!
+2023-05-12 08:22:48.431 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:44:48.188 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:45:13.934 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:46:36.756 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:47:21.110 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:51:35.866 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:51:57.741 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:52:02.573 +02:00 [INF] API Online!!!
+2023-05-12 09:52:30.562 +02:00 [INF] Done setting up serilog!
+2023-05-12 09:52:39.429 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:05:44.189 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:12:17.436 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:14:14.768 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:18:21.814 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:30:22.742 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:31:07.573 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:43:57.915 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:47:05.920 +02:00 [INF] Done setting up serilog!
+2023-05-12 10:51:05.876 +02:00 [INF] Done setting up serilog!

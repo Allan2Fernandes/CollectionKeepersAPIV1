@@ -1,4 +1,5 @@
-﻿using CollectionKeepersAPIV1.DataTransferObjects;
+﻿using CollectionKeepersAPIV1.Controllers.ControllerLogic;
+using CollectionKeepersAPIV1.DataTransferObjects;
 using CollectionKeepersAPIV1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +13,20 @@ namespace CollectionKeepersAPIV1.Controllers
     public class CollectionsController : ControllerBase
     {
         CollectionsDbContext ctx;
+        CollectionsServices CollectionsService;
+        UserServices UserService;
         public CollectionsController(CollectionsDbContext context)
         {
-            ctx = context;
+            this.ctx = context;
+            CollectionsService = new CollectionsServices(ctx);
+            UserService = new UserServices(ctx);
         }
 
         [HttpPost(nameof(CreateCollection))]
         public async Task<ActionResult<string>> CreateCollection(TblCollection Collection)
         {
             //Get the user with that ID. Make sure the user exists
-            List<TblUser> ListOfQueriedUsers = await ctx.TblUsers.Where(User => User.FldUserId == Collection.FldUserId).ToListAsync();
+            List<TblUser> ListOfQueriedUsers = UserService.GetUsersOnID((int)Collection.FldUserId);
 
             if (ListOfQueriedUsers.Count == 0)
             {
@@ -30,9 +35,7 @@ namespace CollectionKeepersAPIV1.Controllers
 
             TblUser QueriedUser = ListOfQueriedUsers.First();
 
-            //Insert into the collections table
-            await ctx.TblCollections.AddAsync(Collection);
-            await ctx.SaveChangesAsync();
+            CollectionsService.AddCollectionToDB(Collection);
 
             return Ok("Collection added");
         }
@@ -43,7 +46,7 @@ namespace CollectionKeepersAPIV1.Controllers
             Random rand = new Random();
 
             //Query the DB for all the collections for that user
-            List<TblCollection> Collections = await ctx.TblCollections.Where(Collection => Collection.FldUserId == InputDetails.FldUserId).ToListAsync();
+            List<TblCollection> Collections = CollectionsService.GetAllCollectionsOnUserID(InputDetails.FldUserId);
             
             List<TblCollection> RandomisedList = new List<TblCollection>();
             /*
@@ -56,6 +59,7 @@ namespace CollectionKeepersAPIV1.Controllers
                 Collections.Remove(RandomElement);
             }
             */
+            //Take The specified number of collections
             RandomisedList = Collections.Take(InputDetails.NumberRandomCollections).ToList();
             return Ok(RandomisedList);
         }
@@ -64,22 +68,16 @@ namespace CollectionKeepersAPIV1.Controllers
         [HttpPost(nameof(GetUsersCollection))]
         public async Task<ActionResult<List<TblCollection>>> GetUsersCollection(GetRandomItemCollectionsDTO InputDetails)
         {
-            Random rand = new Random();
-
             //Query the DB for all the collections for that user
-            List<TblCollection> Collections = await ctx.TblCollections.Where(Collection => Collection.FldUserId == InputDetails.FldUserId).ToListAsync();
-
-            List<TblCollection> RandomisedList = new List<TblCollection>();
-    
-            RandomisedList = Collections.Take(InputDetails.NumberRandomCollections).ToList();
-            return Ok(RandomisedList);
+            List<TblCollection> Collections = CollectionsService.GetAllCollectionsOnUserID(InputDetails.FldUserId);
+            return Ok(Collections);
         }
 
 
         [HttpGet(nameof(GetAnotherUsersPublicCollection) + "/UserID")]
         public async Task<ActionResult<List<TblCollection>>> GetAnotherUsersPublicCollection(int UserID)
         {
-            List<TblCollection> Collections = await ctx.TblCollections.Where(Collection => Collection.FldUserId == UserID && (Collection.FldIsPrivate == false)).ToListAsync();
+            List<TblCollection> Collections = CollectionsService.GetAllUsersPublicCollections(UserID);
 
             return Ok(Collections); 
         }
@@ -88,32 +86,26 @@ namespace CollectionKeepersAPIV1.Controllers
         [HttpGet(nameof(SearchAllPublicCollectionsOnKeyboard) + "/Keyword")]
         public async Task<ActionResult<List<TblCollection>>> SearchAllPublicCollectionsOnKeyboard(string Keyword)
         {
-            List<TblCollection> Collections = await ctx.TblCollections.Where(Collection => Collection.FldCollectionName.Contains(Keyword) && (Collection.FldIsPrivate == false)).ToListAsync();
+            List<TblCollection> Collections = CollectionsService.GetAllCollectionsContainingKeyword(Keyword);
 
             return Ok(Collections);
         }
 
         //Update collection
         [HttpPut(nameof(UpdateCollection))]
-        public async Task<ActionResult<string>> UpdateCollection(TblCollection CollectionToUpdate)
+        public async Task<ActionResult<string>> UpdateCollection(TblCollection NewCollectionDetails)
         {
             //Find the correct collection
-            List<TblCollection> ListOfQueriedCollections = await ctx.TblCollections.Where(Collection => CollectionToUpdate.FldCollectionId == Collection.FldCollectionId).ToListAsync();
+            List<TblCollection> ListOfQueriedCollections = CollectionsService.GetAllCollectionsOnCollectionID(NewCollectionDetails.FldCollectionId);
 
             if(ListOfQueriedCollections.Count == 0)
             {
                 return Ok("Collection not found");
             }
 
-            TblCollection SearchedCollection = ListOfQueriedCollections.First();
+            TblCollection SearchedCollection = ListOfQueriedCollections.First();           
 
-            //Update every property of the collection
-            SearchedCollection.FldCollectionName = CollectionToUpdate.FldCollectionName;
-            SearchedCollection.FldCollectionDescription = CollectionToUpdate.FldCollectionDescription;
-            SearchedCollection.FldCollectionThumbnail = CollectionToUpdate.FldCollectionThumbnail;
-            SearchedCollection.FldIsPrivate= CollectionToUpdate.FldIsPrivate;
-            
-            await ctx.SaveChangesAsync();
+            CollectionsService.UpdateCollection(SearchedCollection, NewCollectionDetails);
 
             return Ok("Collection was updated");
         }
@@ -139,10 +131,7 @@ namespace CollectionKeepersAPIV1.Controllers
             List<int> ListOfConnectionAttributeValueIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
             //Find all CollectionEntries
             List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfConnectionAttributeValueIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
-
-
-     
-
+    
             //Remove the attribute values
             ctx.TblAttributeValues.RemoveRange(ConnectedAttributeValues);
             await ctx.SaveChangesAsync();

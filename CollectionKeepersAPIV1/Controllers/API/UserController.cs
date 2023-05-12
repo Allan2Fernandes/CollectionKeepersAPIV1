@@ -13,52 +13,86 @@ namespace CollectionKeepersAPIV1.Controllers
     public class UserController : ControllerBase
     {
         CollectionsDbContext ctx;
-        UserControllerLogic UserControllerLogic;
+        UserServices UserServices;
 
         public UserController(CollectionsDbContext context) 
         { 
             ctx = context;
-            UserControllerLogic = new UserControllerLogic(ctx);
+            UserServices = new UserServices(ctx);
         }
 
         [HttpGet(nameof(GetAllUsers))]
         public async Task<ActionResult<List<TblUser>>> GetAllUsers()
-        {            
-            return Ok(UserControllerLogic.GetAllUsers());
+        {
+            var ListOfUsers = UserServices.GetAllUsers();
+            return Ok(ListOfUsers);
         }
 
         [HttpPost(nameof(CreateNewUser))]
         public async Task<ActionResult<string>> CreateNewUser(TblUser NewUser)
         {
-            
-            return Ok(UserControllerLogic.CreateNewUser(NewUser));
+
+            if (!Functions.Functions.CheckIfValidEmail(NewUser.FldEmail))
+            {
+                return Ok("Invalid email");
+            }
+            string Email = NewUser.FldEmail;
+
+            //TODO: Check that the email id doesn't already exist in the db before adding a new user with that email
+            List<TblUser> QueriedUsers = UserServices.GetUsersOnEmail(Email);
+
+            if (QueriedUsers.Count != 0)
+            {
+                return Ok("Email ID already in DB");
+            }
+
+            UserServices.AddUserToDB(NewUser);
+            return Ok("NewUser Posted");
         }
 
         [HttpPost(nameof(Login))]
         public async Task<ActionResult<string>> Login(TblUser User)
         {
-            return Ok(UserControllerLogic.Login(User));
+            string Email = User.FldEmail;
+            string Password = User.FldPassword;
+            string ErrorMessage = "Invalid credentials entered";
+
+            List<TblUser> QueriedUsers = UserServices.GetUsersOnEmail(Email);
+
+            if (QueriedUsers.Count == 0)
+            {
+                return Ok(ErrorMessage);
+            }
+
+            TblUser QueriedUser = QueriedUsers.First();
+
+            if (Password == QueriedUser.FldPassword)
+            {
+                return Ok(QueriedUser);
+            }
+            else
+            {
+                return Ok(ErrorMessage);
+            }
         }
 
         [HttpPut(nameof(UpdateUser))]
         public async Task<ActionResult<string>> UpdateUser(TblUser NewUserDetails)
         {
-            List<TblUser> QueriedAccounts = await ctx.TblUsers.Where(User => User.FldUserId == NewUserDetails.FldUserId).ToListAsync();
+            List<TblUser> QueriedAccounts = UserServices.GetUsersOnID(NewUserDetails.FldUserId);
 
             if(QueriedAccounts.Count == 0)
             {
                 return Ok("Account not found");
             }
-
             TblUser FoundUser = QueriedAccounts.First();
+            
+            if (!Functions.Functions.CheckIfValidEmail(NewUserDetails.FldEmail))
+            {
+                return Ok("New Email is invalid");
+            }
 
-            //Update all details for this account
-            FoundUser.FldUsername = NewUserDetails.FldUsername;
-            FoundUser.FldPassword = NewUserDetails.FldPassword;
-            FoundUser.FldEmail = NewUserDetails.FldEmail;
-
-            //Save the changes
-            await ctx.SaveChangesAsync();
+            UserServices.UpdateUserDetails(FoundUser, NewUserDetails);
 
             return Ok("User Updated");
         }
@@ -67,7 +101,7 @@ namespace CollectionKeepersAPIV1.Controllers
         public async Task<ActionResult<string>> DeleteUserOnID(int UserID)
         {
             //Find the user
-            List<TblUser> QueriedAccounts = await ctx.TblUsers.Where(User => User.FldUserId == UserID).ToListAsync();
+            List<TblUser> QueriedAccounts = UserServices.GetUsersOnID(UserID);
 
             if (QueriedAccounts.Count == 0)
             {
@@ -85,8 +119,7 @@ namespace CollectionKeepersAPIV1.Controllers
             List<int> ListOfDistinctCollectionEntryIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
             //Find all the collection entries
             List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfDistinctCollectionEntryIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
-
-            
+                        
 
             ctx.TblAttributeValues.RemoveRange(ConnectedAttributeValues);
             await ctx.SaveChangesAsync();

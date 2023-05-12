@@ -54,7 +54,6 @@ public class Program
         // Heroku wants to specify the port, se we gotta get the port from environment varibles when running on heroku
         var port = Environment.GetEnvironmentVariable("PORT");
         builder.WebHost.UseUrls("http://*:" + port);
-    
         var app = builder.Build();
         
         // Configure the HTTP request pipeline.
