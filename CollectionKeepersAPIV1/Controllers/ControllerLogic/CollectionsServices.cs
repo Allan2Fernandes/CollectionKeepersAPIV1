@@ -27,7 +27,7 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
 
         public List<TblCollection> GetAllUsersPublicCollections(int UserID)
         {
-            List<TblCollection> ListOfCollections =  ctx.TblCollections.Where(Collection => Collection.FldUserId == UserID && (Collection.FldIsPrivate == false)).ToList();
+            List<TblCollection> ListOfCollections =  ctx.TblCollections.Where(Collection => (Collection.FldUserId == UserID) && (Collection.FldIsPrivate == false)).ToList();
             return ListOfCollections;
         }
 
@@ -37,7 +37,7 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
             return Collections;
         }
 
-        public List<TblCollection> GetAllCollectionsOnCollectionID(int CollectionID)
+        public List<TblCollection> GetCollectionsOnCollectionID(int CollectionID)
         {
             List<TblCollection> ListOfQueriedCollections = ctx.TblCollections.Where(Collection => Collection.FldCollectionId == CollectionID).ToList();
             return ListOfQueriedCollections;

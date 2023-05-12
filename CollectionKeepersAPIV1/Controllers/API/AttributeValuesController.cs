@@ -18,17 +18,51 @@ namespace CollectionKeepersAPIV1.Controllers.API
             this.ctx = ctx;
         }
 
+        [HttpGet(nameof(GetCollectionEntry) + "/{CollectionEntryID}")]
+        public async Task<ActionResult<List<object>>> GetCollectionEntry(int CollectionEntryID)
+        {
+            //Set up query
+            var query = from AttributeValuesTable in ctx.TblAttributeValues
+                        join
+                        AttributesTable in ctx.TblAttributes
+                        on
+                        AttributeValuesTable.FldAttributeId equals AttributesTable.FldAttributeId
+                        join
+                        CollectionEntriestable in ctx.TblCollectionEntries
+                        on
+                        AttributeValuesTable.FldCollectionEntryId equals CollectionEntriestable.FldCollectionEntryId
+                        where
+                        AttributeValuesTable.FldCollectionEntryId == CollectionEntryID
+                        select new
+                        {
+                            AttributesTable.FldAttributeId,
+                            AttributesTable.FldCollectionId,
+                            AttributesTable.FldAttributeName,
+                            AttributeValuesTable.FldAttributeValueId,
+                            AttributeValuesTable.FldValue,
+                            AttributeValuesTable.FldCollectionEntryId
+                        };
+
+            //Execute query
+            List<object> QueriedList = new List<object>();
+            foreach(var row in query)
+            {
+                QueriedList.Add(new
+                {
+                    FldAttributeId = row.FldAttributeId,
+                    FldCollectionId = row.FldCollectionId,
+                    FldAttributeName = row.FldAttributeName,
+                    FldAttributeValueId = row.FldAttributeValueId,
+                    FldValue = row.FldValue,
+                    FldCollectionEntryId = row.FldCollectionEntryId
+                });
+            }
+            return QueriedList;
+        }
+
         [HttpPost(nameof(PostAttributeValue))]
         public async Task<ActionResult<string>> PostAttributeValue(InsertAttributeValueDTO[] ListOfValues)
         {
-            /*
-                {
-                  "fldAttributeId": 2,
-                  "fldValue": "Lightning"
-                }
-             
-             */
-
             //Enter a value into CollectionEntry Table
             TblCollectionEntry NewCollectionEntry = new TblCollectionEntry();
             await ctx.TblCollectionEntries.AddAsync(NewCollectionEntry);

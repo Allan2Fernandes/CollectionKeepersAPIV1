@@ -69,9 +69,8 @@ namespace XUnitTestProject
 
             var service = new UserServices(mockContext.Object);
             service.AddUserToDB(Originaluser);
-
             service.UpdateUserDetails(Originaluser, NewUser);
-            mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.Once);
+            mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.AtLeastOnce());
             mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
         }
 

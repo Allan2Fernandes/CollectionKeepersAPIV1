@@ -46,7 +46,7 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
             FoundUser.FldEmail = NewUserDetails.FldEmail;
 
             //Save the changes
-            ctx.SaveChangesAsync();
+            ctx.SaveChanges();
         }
       
     }

@@ -96,7 +96,7 @@ namespace CollectionKeepersAPIV1.Controllers
         public async Task<ActionResult<string>> UpdateCollection(TblCollection NewCollectionDetails)
         {
             //Find the correct collection
-            List<TblCollection> ListOfQueriedCollections = CollectionsService.GetAllCollectionsOnCollectionID(NewCollectionDetails.FldCollectionId);
+            List<TblCollection> ListOfQueriedCollections = CollectionsService.GetCollectionsOnCollectionID(NewCollectionDetails.FldCollectionId);
 
             if(ListOfQueriedCollections.Count == 0)
             {
