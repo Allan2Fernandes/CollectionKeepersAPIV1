@@ -111,12 +111,18 @@ namespace CollectionKeepersAPIV1.Controllers
             //Find all the Collections
             List<TblCollection> ConnectedCollections = await ctx.TblCollections.Where(row => row.FldUserId == UserID).ToListAsync();
             List<int> ListOfCollectionIDs = ConnectedCollections.Select(row => row.FldCollectionId).ToList();
+            
+            
             //Find all the attributes
             List<TblAttribute> ConnectedAttributes = await ctx.TblAttributes.Where(row => ListOfCollectionIDs.Contains((int)row.FldCollectionId)).ToListAsync();
             List<int> ListOfAttributeIDs = ConnectedAttributes.Select(row => row.FldAttributeId).ToList();
+            
+            
             //Find all the attribute values
-            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfAttributeIDs.Contains((int)row.FldAttributeValueId)).ToListAsync();  
+            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfAttributeIDs.Contains((int)row.FldAttributeId)).ToListAsync();  
             List<int> ListOfDistinctCollectionEntryIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
+            
+            
             //Find all the collection entries
             List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfDistinctCollectionEntryIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
                         

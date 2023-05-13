@@ -4,19 +4,36 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
+using Xunit.Abstractions;
 
 namespace XUnitTestProject
 {
-    public class DbAttributeTests
+    public class DbAttributeTests : IDisposable 
     {
+        public DbAttributeTests(ITestOutputHelper output)
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.TestOutput(output)
+                .WriteTo.File("./TestSerilogs/DbCollectionTestLogs.txt")
+                .CreateLogger();
+        }
+
+        public void Dispose()
+        {
+            Log.CloseAndFlush();
+        }
+
         [Fact]
         public void AddNewAttributeTest()
         {
+            Log.Information("Carrying out Add New AttributeTest");
+            
             var mockSet = new Mock<DbSet<TblAttribute>>();
-
             var mockContext = new Mock<CollectionsDbContext>();
             mockContext.Setup(m => m.TblAttributes).Returns(mockSet.Object);
 
@@ -28,13 +45,22 @@ namespace XUnitTestProject
                 FldAttributeName = "TestAttributeName"
             });
 
-            mockSet.Verify(m => m.Add(It.IsAny<TblAttribute>()), Times.Once);
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblAttribute>()), Times.Once);
+                mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
         public void UpdateAttributeTest()
         {
+            Log.Information("Carrying out Update Attribute test");
             var OriginalAttribute = new TblAttribute
             {
                 FldAttributeId = 1,
@@ -56,13 +82,23 @@ namespace XUnitTestProject
             var service = new AttributeServices(mockContext.Object);
             service.AddNewAttribute(OriginalAttribute);
             service.UpdateAttribute(OriginalAttribute, UpdatedAttributeDetails);
-            mockSet.Verify(m => m.Add(It.IsAny<TblAttribute>()), Times.AtLeastOnce());
-            mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblAttribute>()), Times.AtLeastOnce());
+                mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
+            
         }
 
         [Fact]
         public void CheckIfAttributeExistsInCollectionTest()
         {
+            Log.Information("Carrying out test to check if attribute exists in the collection");
             var data = new List<TblAttribute>
             {
                 new TblAttribute
@@ -113,14 +149,23 @@ namespace XUnitTestProject
                 FldAttributeName = "TestAttributeName1"
             });
 
-            Assert.Equal(true, AttributeExistsInCollection1);
-            Assert.Equal(false, AttributeExistsInCollection2);
-            Assert.Equal(false, AttributeExistsInCollection3);
+            try
+            {
+                Assert.Equal(true, AttributeExistsInCollection1);
+                Assert.Equal(false, AttributeExistsInCollection2);
+                Assert.Equal(false, AttributeExistsInCollection3);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
         public void GetAttributesOnAttributeIDTest()
         {
+            Log.Information("Carrying out test to get attribute on attributeID");
             var data = new List<TblAttribute>
             {
                 new TblAttribute
@@ -155,14 +200,23 @@ namespace XUnitTestProject
             var service = new AttributeServices(mockContext.Object);
             var QueriedAttributes = service.GetAttributesOnAttributeID(3);
 
-            Assert.Equal(1, QueriedAttributes.Count);
-            Assert.Equal(5, QueriedAttributes.First().FldCollectionId);
-            Assert.Equal("TestAttributeName3", QueriedAttributes.First().FldAttributeName);
+            try
+            {
+                Assert.Equal(1, QueriedAttributes.Count);
+                Assert.Equal(5, QueriedAttributes.First().FldCollectionId);
+                Assert.Equal("TestAttributeName3", QueriedAttributes.First().FldAttributeName);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
         public void GetAllAttributesOnCollectionIDTest()
         {
+            Log.Information("Carrying out test to get all attributes in a collection using CollectionID");
             var data = new List<TblAttribute>
             {
                 new TblAttribute
@@ -197,11 +251,19 @@ namespace XUnitTestProject
             var service = new AttributeServices(mockContext.Object);
             var QueriedAttributes = service.GetAllAttributesOnCollectionID(1);
 
-            Assert.Equal(2, QueriedAttributes.Count);
-            Assert.Equal(1, QueriedAttributes[0].FldCollectionId);
-            Assert.Equal("TestAttributeName1", QueriedAttributes[0].FldAttributeName);
-            Assert.Equal(1, QueriedAttributes[1].FldCollectionId);
-            Assert.Equal("TestAttributeName2", QueriedAttributes[1].FldAttributeName);
+            try
+            {
+                Assert.Equal(2, QueriedAttributes.Count);
+                Assert.Equal(1, QueriedAttributes[0].FldCollectionId);
+                Assert.Equal("TestAttributeName1", QueriedAttributes[0].FldAttributeName);
+                Assert.Equal(1, QueriedAttributes[1].FldCollectionId);
+                Assert.Equal("TestAttributeName2", QueriedAttributes[1].FldAttributeName);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
     }

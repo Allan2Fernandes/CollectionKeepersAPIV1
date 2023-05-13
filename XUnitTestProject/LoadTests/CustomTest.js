@@ -12,7 +12,7 @@ export let options = {
 };
 
 export default () => {
-    http.get('http://10.176.129.17:5001/api/User/GetAllUsers', { headers: { "Accept": "*/*" } });
+    http.get('http://10.176.88.60:5001/api/User/GetAllUsers', { headers: { "Accept": "*/*" } });
     sleep(1);
 };
 

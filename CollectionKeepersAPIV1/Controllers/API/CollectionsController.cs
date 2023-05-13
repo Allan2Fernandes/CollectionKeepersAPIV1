@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Serilog;
 
 namespace CollectionKeepersAPIV1.Controllers
 {
@@ -15,11 +16,13 @@ namespace CollectionKeepersAPIV1.Controllers
         CollectionsDbContext ctx;
         CollectionsServices CollectionsService;
         UserServices UserService;
+        private readonly Serilog.ILogger log; 
         public CollectionsController(CollectionsDbContext context)
         {
             this.ctx = context;
             CollectionsService = new CollectionsServices(ctx);
             UserService = new UserServices(ctx);
+            log = Log.Logger.ForContext<CollectionsController>();
         }
 
         [HttpPost(nameof(CreateCollection))]
@@ -125,13 +128,21 @@ namespace CollectionKeepersAPIV1.Controllers
 
             //Find all the Attributes in this collection and delete it
             List<TblAttribute> ListOfConnectedAttributes = await ctx.TblAttributes.Where(row => row.FldCollectionId == CollectionID).ToListAsync();
-            List<int> ListOfConnectedAttributeIDs = ListOfConnectedAttributes.Select(row => row.FldAttributeId).ToList();
+            List<int> ListOfConnectedAttributeIDs = ListOfConnectedAttributes.Select(row => row.FldAttributeId).Distinct().ToList();
+
             //Find all Attribute values
-            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfConnectedAttributeIDs.Contains((int)row.FldAttributeValueId)).ToListAsync();
-            List<int> ListOfConnectionAttributeValueIDs = ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
+            List<TblAttributeValue> ConnectedAttributeValues = await ctx.TblAttributeValues.Where(row => ListOfConnectedAttributeIDs.Contains((int)row.FldAttributeId)).ToListAsync();
+
+            List<int> ListOfConnectedCollectionEntryIDs =
+                ConnectedAttributeValues.Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
+            
             //Find all CollectionEntries
-            List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries.Where(row => ListOfConnectionAttributeValueIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
-    
+            List<TblCollectionEntry> ConnectedCollectionEntries = await ctx.TblCollectionEntries
+                .Where(row => ListOfConnectedCollectionEntryIDs.Contains((int)row.FldCollectionEntryId)).ToListAsync();
+            
+            log.Information("List of Connected Collection entries are: ");
+            ConnectedCollectionEntries.ForEach(row => log.Information(row.ToString()));
+            
             //Remove the attribute values
             ctx.TblAttributeValues.RemoveRange(ConnectedAttributeValues);
             await ctx.SaveChangesAsync();
@@ -147,7 +158,7 @@ namespace CollectionKeepersAPIV1.Controllers
             //Finally remove the collection
             ctx.TblCollections.Remove(FoundCollection);
             await ctx.SaveChangesAsync();
-
+            
             return Ok("Collection successfully deleted");
         }
 

@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Moq;
 using Serilog;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace XUnitTestProject
 {
@@ -46,9 +47,18 @@ namespace XUnitTestProject
                 FldPassword = "TestPassword",
                 FldEmail = "Test@Test.com"
             });
-
-            mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.Once);
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.Once);
+                mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                Log.Error(e.Message);
+                throw;
+            }
+           
         }
         [Fact]
         public void ModifyUserTest() //Look into this one later
@@ -79,8 +89,17 @@ namespace XUnitTestProject
             var service = new UserServices(mockContext.Object);
             service.AddUserToDB(Originaluser);
             service.UpdateUserDetails(Originaluser, NewUser);
-            mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.AtLeastOnce());
-            mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.AtLeastOnce());
+                mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -124,11 +143,19 @@ namespace XUnitTestProject
 
             var service = new UserServices(mockContext.Object);
             var QueriedUsers = service.GetAllUsers();
+            try
+            {
+                Assert.Equal(3, QueriedUsers.Count);
+                Assert.Equal("Test3", QueriedUsers[2].FldUsername);
+                Assert.Equal("TestPassword2", QueriedUsers[1].FldPassword);
+                Assert.Equal("Test@Test.com", QueriedUsers[0].FldEmail);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
 
-            Assert.Equal(3, QueriedUsers.Count);
-            Assert.Equal("Test3", QueriedUsers[2].FldUsername);
-            Assert.Equal("TestPassword2", QueriedUsers[1].FldPassword);
-            Assert.Equal("Test@Test.com", QueriedUsers[0].FldEmail);
         }
 
         [Fact]
@@ -173,10 +200,18 @@ namespace XUnitTestProject
             var service = new UserServices(mockContext.Object);
             var QueriedUsers = service.GetUsersOnID(3);
 
-            Assert.Equal(1, QueriedUsers.Count);
-            Assert.Equal("Test3", QueriedUsers[0].FldUsername);
-            Assert.Equal("TestPassword3", QueriedUsers[0].FldPassword);
-            Assert.Equal("Test3@Test.com", QueriedUsers[0].FldEmail);
+            try
+            {
+                Assert.Equal(1, QueriedUsers.Count);
+                Assert.Equal("Test3", QueriedUsers[0].FldUsername);
+                Assert.Equal("TestPassword3", QueriedUsers[0].FldPassword);
+                Assert.Equal("Test3@Test.com", QueriedUsers[0].FldEmail);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -221,10 +256,18 @@ namespace XUnitTestProject
             var service = new UserServices(mockContext.Object);
             var QueriedUsers = service.GetUsersOnEmail("Test2@Test.com");
 
-            Assert.Equal(1, QueriedUsers.Count);
-            Assert.Equal("Test2", QueriedUsers[0].FldUsername);
-            Assert.Equal("TestPassword2", QueriedUsers[0].FldPassword);
-            Assert.Equal("Test2@Test.com", QueriedUsers[0].FldEmail);
+            try
+            {
+                Assert.Equal(1, QueriedUsers.Count);
+                Assert.Equal("Test2", QueriedUsers[0].FldUsername);
+                Assert.Equal("TestPassword2", QueriedUsers[0].FldPassword);
+                Assert.Equal("Test2@Test.com", QueriedUsers[0].FldEmail);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
        

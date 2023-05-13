@@ -21,8 +21,8 @@ export let options = {
 export default () => {
     // batch fetch from multiple controllers
     http.batch([
-        ['GET', 'http://10.176.129.17:5001/api/User/GetAllUsers', { headers: { "Accept": "*/*" } }],
-        ['GET', 'http://10.176.129.17:5001/api/Main/CheckIfOnline', { headers: { "Accept": "*/*" } }]
+        ['GET', 'http://10.176.88.60:5001/api/User/GetAllUsers', { headers: { "Accept": "*/*" } }],
+        ['GET', 'http://10.176.88.60:5001/api/Main/CheckIfOnline', { headers: { "Accept": "*/*" } }]
         ])
     sleep(1);
 };

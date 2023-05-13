@@ -48,8 +48,16 @@ namespace XUnitTestProject
                 FldIsPrivate = false
             });
 
-            mockSet.Verify(m => m.Add(It.IsAny<TblCollection>()), Times.Once);
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblCollection>()), Times.Once);
+                mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -83,8 +91,17 @@ namespace XUnitTestProject
             var service = new CollectionsServices(mockContext.Object);
             service.AddCollectionToDB(OriginalCollection);
             service.UpdateCollection(OriginalCollection, UpdatedCollection);
-            mockSet.Verify(m => m.Add(It.IsAny<TblCollection>()), Times.AtLeastOnce());
-            mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+
+            try
+            {
+                mockSet.Verify(m => m.Add(It.IsAny<TblCollection>()), Times.AtLeastOnce());
+                mockContext.Verify(m => m.SaveChanges(), Times.AtLeastOnce());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -144,8 +161,16 @@ namespace XUnitTestProject
             var service = new CollectionsServices(mockContext.Object);
             var QueriedCollections = service.GetAllCollectionsOnUserID(1);
 
-            Assert.Equal(3, QueriedCollections.Count);
-            Assert.Equal("TestCollectionName3", QueriedCollections[2].FldCollectionName);
+            try
+            {
+                Assert.Equal(3, QueriedCollections.Count);
+                Assert.Equal("TestCollectionName3", QueriedCollections[2].FldCollectionName);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -204,13 +229,22 @@ namespace XUnitTestProject
             var service = new CollectionsServices(mockContext.Object);
             var QueriedCollections = service.GetAllUsersPublicCollections(1);
 
-            Assert.Equal(2, QueriedCollections.Count);
-            Assert.Equal("TestCollectionName3", QueriedCollections[1].FldCollectionName);
+            try
+            {
+                Assert.Equal(2, QueriedCollections.Count);
+                Assert.Equal("TestCollectionName3", QueriedCollections[1].FldCollectionName);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
         public void GetAllPublicCollectionsContainingKeywordTest()
         {
+            Log.Information("Carrying out get all public collections on keyword test");
             var data = new List<TblCollection>
             {
                 new TblCollection
@@ -263,15 +297,24 @@ namespace XUnitTestProject
             var service = new CollectionsServices(mockContext.Object);
             var QueriedCollections = service.GetAllCollectionsContainingKeyword("caps");
 
-            Assert.Equal(2, QueriedCollections.Count);
-            Assert.Equal("Football caps", QueriedCollections[1].FldCollectionName);
-            Assert.Equal(1, QueriedCollections[0].FldUserId);
-            Assert.Equal(2, QueriedCollections[0].FldCollectionId);
+            try
+            {
+                Assert.Equal(2, QueriedCollections.Count);
+                Assert.Equal("Football caps", QueriedCollections[1].FldCollectionName);
+                Assert.Equal(1, QueriedCollections[0].FldUserId);
+                Assert.Equal(2, QueriedCollections[0].FldCollectionId);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
         [Fact]
         public void GetCollectionOnCollectionIDTest()
         {
+            Log.Information("Carrying out get Collection on CollectionID test");
             var data = new List<TblCollection>
             {
                 new TblCollection
@@ -324,12 +367,20 @@ namespace XUnitTestProject
             var service = new CollectionsServices(mockContext.Object);
             var QueriedCollections = service.GetCollectionsOnCollectionID(4);
 
-            Assert.Equal(1, QueriedCollections.Count);
-            Assert.Equal("caps", QueriedCollections[0].FldCollectionName);
-            Assert.Equal(2, QueriedCollections[0].FldUserId);
-            Assert.Equal(4, QueriedCollections[0].FldCollectionId);
-            Assert.Equal(true, QueriedCollections[0].FldIsPrivate);
-            Assert.Equal("Description of the test collection4", QueriedCollections[0].FldCollectionDescription);
+            try
+            {
+                Assert.Equal(1, QueriedCollections.Count);
+                Assert.Equal("caps", QueriedCollections[0].FldCollectionName);
+                Assert.Equal(2, QueriedCollections[0].FldUserId);
+                Assert.Equal(4, QueriedCollections[0].FldCollectionId);
+                Assert.Equal(true, QueriedCollections[0].FldIsPrivate);
+                Assert.Equal("Description of the test collection4", QueriedCollections[0].FldCollectionDescription);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                throw;
+            }
         }
 
     }  

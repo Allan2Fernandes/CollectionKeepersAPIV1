@@ -12,8 +12,8 @@ namespace CollectionKeepersAPIV1.Controllers.API
     [ApiController]
     public class AttributeController : ControllerBase
     {
-
-        CollectionsDbContext ctx = new CollectionsDbContext();
+        private readonly Serilog.ILogger log; 
+        CollectionsDbContext ctx;
         AttributeServices AttributeService;
         CollectionsServices CollectionService;
 
@@ -22,6 +22,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             this.ctx = ctx;
             AttributeService = new AttributeServices(this.ctx);
             CollectionService = new CollectionsServices(this.ctx); 
+            log = Log.Logger.ForContext<AttributeController>();
         }
 
         [HttpPost(nameof(CreateAttribute))]
@@ -96,11 +97,23 @@ namespace CollectionKeepersAPIV1.Controllers.API
             TblAttribute AttributeToDelete = QueriedList.First();
 
             //Find all the attribute values and with that attribute ID and remove them
-            List<TblAttributeValue> QueriedListOfAttributeValues = await ctx.TblAttributeValues.Where(row => row.FldAttributeId == AttributeToDelete.FldAttributeId).ToListAsync();
+            List<TblAttributeValue> QueriedListOfAttributeValues = await ctx.TblAttributeValues
+                .Where(row => row.FldAttributeId == AttributeToDelete.FldAttributeId).ToListAsync();
+            
+            List<int> ListOfDistinctCollectionEntryIDs = QueriedListOfAttributeValues
+                .Select(row => (int)row.FldCollectionEntryId).Distinct().ToList();
+            
+            List<TblCollectionEntry> ConnectedCollectionEntries = ctx.TblCollectionEntries.
+                Where(row => ListOfDistinctCollectionEntryIDs.Contains((int)row.FldCollectionEntryId)).ToList();
+            
             ctx.TblAttributeValues.RemoveRange(QueriedListOfAttributeValues);
             await ctx.SaveChangesAsync();
+            //Delete the attributes
             ctx.TblAttributes.Remove(AttributeToDelete);
             await ctx.SaveChangesAsync();          
+            //Delete the associated collection entries
+            ctx.TblCollectionEntries.RemoveRange(ConnectedCollectionEntries);
+            await ctx.SaveChangesAsync();
             return Ok($"Attribute with the ID {AttributeID} was deleted");
         }
 
