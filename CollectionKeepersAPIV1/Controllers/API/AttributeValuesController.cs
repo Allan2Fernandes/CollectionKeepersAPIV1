@@ -55,6 +55,27 @@ namespace CollectionKeepersAPIV1.Controllers.API
             return QueriedList;
         }
 
+        [HttpGet(nameof(GetDisctinctCollectionEntryIDsOnCollectionID) + "/{CollectionID}")]
+        public async Task<ActionResult<List<int>>> GetDisctinctCollectionEntryIDsOnCollectionID(int CollectionID)
+        {
+            var query = from CollectionsTable in ctx.TblCollections
+                join AttributesTable in ctx.TblAttributes
+                    on CollectionsTable.FldCollectionId equals AttributesTable.FldCollectionId
+                join AttributeValuesTable in ctx.TblAttributeValues
+                    on AttributesTable.FldAttributeId equals AttributeValuesTable.FldAttributeId
+                join CollectionEntriesTable in ctx.TblCollectionEntries
+                    on AttributeValuesTable.FldCollectionEntryId equals CollectionEntriesTable.FldCollectionEntryId
+                where CollectionsTable.FldCollectionId == CollectionID
+                select new
+                {
+                    columnName = CollectionEntriesTable.FldCollectionEntryId
+                };
+            
+            List<int> ListOfCollectionEntryIDs = new List<int>();
+            await query.ForEachAsync(row => ListOfCollectionEntryIDs.Add(row.columnName));
+            return Ok(ListOfCollectionEntryIDs.Distinct().ToList());
+        }
+
         [HttpPost(nameof(PostAttributeValue))]
         public async Task<ActionResult<string>> PostAttributeValue(InsertAttributeValueDTO[] ListOfValues)
         {

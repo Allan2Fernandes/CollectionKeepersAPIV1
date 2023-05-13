@@ -8,18 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
+using Xunit.Abstractions;
 
 namespace XUnitTestProject
 {
-    public class DbCollectionTests
+    public class DbCollectionTests : IDisposable 
     {
-        public DbCollectionTests() 
+        public DbCollectionTests(ITestOutputHelper output) 
         {
-        } 
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.TestOutput(output)
+                .WriteTo.File("./TestSerilogs/DbCollectionTestLogs.txt")
+                .CreateLogger();
+            
+        }
+
+        public void Dispose()
+        {
+            Log.CloseAndFlush();
+        }
         
         [Fact]
         public void AddCollectionTest()
         {
+            Log.Information("Carrying out Add Collection Test");
             var mockSet = new Mock<DbSet<TblCollection>>();
 
             var mockContext = new Mock<CollectionsDbContext>();
@@ -43,6 +55,7 @@ namespace XUnitTestProject
         [Fact]
         public void UpdateCollectionTest()
         {
+            Log.Information("Carrying out Update Collection Test");
             var OriginalCollection = new TblCollection
             {
                 FldCollectionId = 1,
@@ -77,6 +90,7 @@ namespace XUnitTestProject
         [Fact]
         public void GetAllCollectionsOnUserIDTest()
         {
+            Log.Information("Carrying out get all collections on UserID tests");
             var data = new List<TblCollection>
             {
                 new TblCollection
@@ -137,6 +151,7 @@ namespace XUnitTestProject
         [Fact]
         public void GetAllOfAUsersPublicCollectionsTest()
         {
+            Log.Information("Carrying out get all of a user's public collections test");
             var data = new List<TblCollection>
             {
                 new TblCollection
