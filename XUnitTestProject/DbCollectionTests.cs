@@ -36,7 +36,7 @@ namespace XUnitTestProject
         }
 
         [Fact]
-        public void UpdatCollectionTest()
+        public void UpdateCollectionTest()
         {
             var OriginalCollection = new TblCollection
             {
@@ -123,10 +123,10 @@ namespace XUnitTestProject
             mockContext.Setup(c => c.TblCollections).Returns(mockSet.Object);
 
             var service = new CollectionsServices(mockContext.Object);
-            var QueriedUsers = service.GetAllCollectionsOnUserID(1);
+            var QueriedCollections = service.GetAllCollectionsOnUserID(1);
 
-            Assert.Equal(3, QueriedUsers.Count);
-            Assert.Equal("TestCollectionName3", QueriedUsers[2].FldCollectionName);
+            Assert.Equal(3, QueriedCollections.Count);
+            Assert.Equal("TestCollectionName3", QueriedCollections[2].FldCollectionName);
         }
 
         [Fact]
@@ -182,10 +182,10 @@ namespace XUnitTestProject
             mockContext.Setup(c => c.TblCollections).Returns(mockSet.Object);
 
             var service = new CollectionsServices(mockContext.Object);
-            var QueriedUsers = service.GetAllUsersPublicCollections(1);
+            var QueriedCollections = service.GetAllUsersPublicCollections(1);
 
-            Assert.Equal(2, QueriedUsers.Count);
-            Assert.Equal("TestCollectionName3", QueriedUsers[1].FldCollectionName);
+            Assert.Equal(2, QueriedCollections.Count);
+            Assert.Equal("TestCollectionName3", QueriedCollections[1].FldCollectionName);
         }
 
         [Fact]
@@ -241,12 +241,12 @@ namespace XUnitTestProject
             mockContext.Setup(c => c.TblCollections).Returns(mockSet.Object);
 
             var service = new CollectionsServices(mockContext.Object);
-            var QueriedUsers = service.GetAllCollectionsContainingKeyword("caps");
+            var QueriedCollections = service.GetAllCollectionsContainingKeyword("caps");
 
-            Assert.Equal(2, QueriedUsers.Count);
-            Assert.Equal("Football caps", QueriedUsers[1].FldCollectionName);
-            Assert.Equal(1, QueriedUsers[0].FldUserId);
-            Assert.Equal(2, QueriedUsers[0].FldCollectionId);
+            Assert.Equal(2, QueriedCollections.Count);
+            Assert.Equal("Football caps", QueriedCollections[1].FldCollectionName);
+            Assert.Equal(1, QueriedCollections[0].FldUserId);
+            Assert.Equal(2, QueriedCollections[0].FldCollectionId);
         }
 
         [Fact]
@@ -302,14 +302,14 @@ namespace XUnitTestProject
             mockContext.Setup(c => c.TblCollections).Returns(mockSet.Object);
 
             var service = new CollectionsServices(mockContext.Object);
-            var QueriedUsers = service.GetCollectionsOnCollectionID(4);
+            var QueriedCollections = service.GetCollectionsOnCollectionID(4);
 
-            Assert.Equal(1, QueriedUsers.Count);
-            Assert.Equal("caps", QueriedUsers[0].FldCollectionName);
-            Assert.Equal(2, QueriedUsers[0].FldUserId);
-            Assert.Equal(4, QueriedUsers[0].FldCollectionId);
-            Assert.Equal(true, QueriedUsers[0].FldIsPrivate);
-            Assert.Equal("Description of the test collection4", QueriedUsers[0].FldCollectionDescription);
+            Assert.Equal(1, QueriedCollections.Count);
+            Assert.Equal("caps", QueriedCollections[0].FldCollectionName);
+            Assert.Equal(2, QueriedCollections[0].FldUserId);
+            Assert.Equal(4, QueriedCollections[0].FldCollectionId);
+            Assert.Equal(true, QueriedCollections[0].FldIsPrivate);
+            Assert.Equal("Description of the test collection4", QueriedCollections[0].FldCollectionDescription);
         }
 
     }  

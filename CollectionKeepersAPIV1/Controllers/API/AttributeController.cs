@@ -1,4 +1,5 @@
-﻿using CollectionKeepersAPIV1.Models;
+﻿using CollectionKeepersAPIV1.Controllers.ControllerLogic;
+using CollectionKeepersAPIV1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,25 +14,28 @@ namespace CollectionKeepersAPIV1.Controllers.API
     {
 
         CollectionsDbContext ctx = new CollectionsDbContext();
+        AttributeServices AttributeService;
+        CollectionsServices CollectionService;
 
         public AttributeController(CollectionsDbContext ctx) 
         {
-            this.ctx = ctx;            
+            this.ctx = ctx;
+            AttributeService = new AttributeServices(this.ctx);
+            CollectionService = new CollectionsServices(this.ctx); 
         }
 
         [HttpPost(nameof(CreateAttribute))]
         public async Task<ActionResult<string>> CreateAttribute(TblAttribute Entry)
         {
             //Check if there exists an attribute with that name
-            List<TblAttribute> queriedAttributes = await ctx.TblAttributes.Where(row => row.FldCollectionId == Entry.FldCollectionId && row.FldAttributeName == Entry.FldAttributeName).ToListAsync();
-            if(queriedAttributes.Count > 0)
+            
+            if(AttributeService.CheckIfAttributeExistsInCollection(Entry))
             {
                 return Ok($"Attribute with the name {Entry.FldAttributeName} already exists for the collection with ID: {Entry.FldCollectionId}");
             }
             else
             {
-                await ctx.TblAttributes.AddAsync(Entry);
-                await ctx.SaveChangesAsync();
+                AttributeService.AddNewAttribute(Entry);
                 return Ok("Created Attribute value");
             }            
         }
@@ -39,8 +43,8 @@ namespace CollectionKeepersAPIV1.Controllers.API
         [HttpGet(nameof(GetAttributeOnID) + "/{AttributeID}")]
         public async Task<ActionResult<TblAttribute>> GetAttributeOnID(int AttributeID)
         {
-            List<TblAttribute> QueriedList = await ctx.TblAttributes.Where(row => row.FldAttributeId == AttributeID).ToListAsync();
-            if(QueriedList.Count == 0)
+            List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(AttributeID);
+            if (QueriedList.Count == 0)
             {
                 return Ok("Attribute not found");
             }
@@ -55,29 +59,27 @@ namespace CollectionKeepersAPIV1.Controllers.API
         public async Task<ActionResult<string>> ModifyAttribute(TblAttribute NewAttribute)
         {
             //Get the attribute to be modified
-            List<TblAttribute> QueriedList = await ctx.TblAttributes.Where(row => row.FldAttributeId == NewAttribute.FldAttributeId).ToListAsync();
+            List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(NewAttribute.FldAttributeId);
             if(QueriedList.Count == 0)
             {
                 return Ok("Couldn't find the attribute to be modified");
             }         
             //Check if the CollectionID is valid
-            List<TblCollection> QueriedCollectionsList = await ctx.TblCollections.Where(row => row.FldCollectionId == NewAttribute.FldCollectionId).ToListAsync();
+            List<TblCollection> QueriedCollectionsList = CollectionService.GetCollectionsOnCollectionID((int)NewAttribute.FldCollectionId);
             if(QueriedCollectionsList.Count == 0)
             {
                 return Ok($"The collection with ID {NewAttribute.FldCollectionId} doesn't exist");
             }
 
-            TblAttribute QueriedAttribute = QueriedList.First();    
-            QueriedAttribute.FldAttributeName = NewAttribute.FldAttributeName;
-            QueriedAttribute.FldCollectionId = NewAttribute.FldCollectionId;
-            await ctx.SaveChangesAsync();
+            TblAttribute QueriedAttribute = QueriedList.First();
+            AttributeService.UpdateAttribute(QueriedAttribute, NewAttribute);
             return Ok("Attribute has been modified");
         }
 
         [HttpGet(nameof(GetAllAttributesInCollection) + "/{CollectionID}")]
         public async Task<ActionResult<List<TblAttribute>>> GetAllAttributesInCollection(int CollectionID)
         {
-            List<TblAttribute> QueriedList = await ctx.TblAttributes.Where(row => row.FldCollectionId == CollectionID).ToListAsync();
+            List<TblAttribute> QueriedList = AttributeService.GetAllAttributesOnCollectionID(CollectionID);
             return Ok(QueriedList);
         }
 
@@ -85,7 +87,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
         public async Task<ActionResult<string>> DeleteAttributeOnID(int AttributeID)
         {
             //Find the Attribute with that ID
-            List<TblAttribute> QueriedList = await ctx.TblAttributes.Where(row => row.FldAttributeId == AttributeID).ToListAsync();
+            List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(AttributeID);
             if(QueriedList.Count == 0)
             {
                 return Ok($"Attribute with the ID {AttributeID} not found");

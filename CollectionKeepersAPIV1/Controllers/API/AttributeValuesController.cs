@@ -23,16 +23,11 @@ namespace CollectionKeepersAPIV1.Controllers.API
         {
             //Set up query
             var query = from AttributeValuesTable in ctx.TblAttributeValues
-                        join
-                        AttributesTable in ctx.TblAttributes
-                        on
-                        AttributeValuesTable.FldAttributeId equals AttributesTable.FldAttributeId
-                        join
-                        CollectionEntriestable in ctx.TblCollectionEntries
-                        on
-                        AttributeValuesTable.FldCollectionEntryId equals CollectionEntriestable.FldCollectionEntryId
-                        where
-                        AttributeValuesTable.FldCollectionEntryId == CollectionEntryID
+                        join AttributesTable in ctx.TblAttributes
+                        on AttributeValuesTable.FldAttributeId equals AttributesTable.FldAttributeId
+                        join CollectionEntriestable in ctx.TblCollectionEntries
+                        on AttributeValuesTable.FldCollectionEntryId equals CollectionEntriestable.FldCollectionEntryId
+                        where AttributeValuesTable.FldCollectionEntryId == CollectionEntryID
                         select new
                         {
                             AttributesTable.FldAttributeId,
