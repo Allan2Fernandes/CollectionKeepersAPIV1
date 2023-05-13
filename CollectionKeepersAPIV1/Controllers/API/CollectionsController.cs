@@ -40,7 +40,7 @@ namespace CollectionKeepersAPIV1.Controllers
 
             CollectionsService.AddCollectionToDB(Collection);
 
-            return Ok("Collection added");
+            return Ok(Collection.FldCollectionId);
         }
 
         [HttpPost(nameof(GetRandomSetOfCollections))]

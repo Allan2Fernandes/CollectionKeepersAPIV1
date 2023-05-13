@@ -98,7 +98,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             
             await ctx.TblAttributeValues.AddRangeAsync(AttributeValuesToInsert);
             await ctx.SaveChangesAsync();
-            return Ok("Okay");
+            return Ok(NewCollectionEntry);
         }
 
         [HttpGet(nameof(GetAllAttributeValuesForCollection) + "/{CollectionID}")]
