@@ -2,6 +2,7 @@ using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using Castle.Core.Resource;
+using CollectionKeepersAPIV1.Controllers;
 using CollectionKeepersAPIV1.Controllers.ControllerLogic;
 using CollectionKeepersAPIV1.Functions;
 using CollectionKeepersAPIV1.Models;
@@ -9,15 +10,33 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
 using Serilog;
+using Xunit.Abstractions;
 
 namespace XUnitTestProject
 {
-    public class DbUserTests
-    {  
+    public class DbUserTests : IDisposable
+    {
+        public DbUserTests(ITestOutputHelper output) 
+        {
+
+            Log.Logger = new LoggerConfiguration()
+           // add the xunit test output sink to the serilog logger
+           // https://github.com/trbenning/serilog-sinks-xunit#serilog-sinks-xunit
+           .WriteTo.TestOutput(output)
+           .WriteTo.File("./TestSerilogs/DbUserTestLogs.txt")
+           .CreateLogger();
+
+        }
+
+        public void Dispose()
+        {
+            Log.CloseAndFlush();
+        }
 
         [Fact]
         public void AddUsersTest()
         {
+            Log.Information(" Carrying out Add Users test");
             var mockSet = new Mock<DbSet<TblUser>>();
 
             var mockContext = new Mock<CollectionsDbContext>();
@@ -26,12 +45,6 @@ namespace XUnitTestProject
             var service = new UserServices(mockContext.Object);
             service.AddUserToDB(new TblUser
             {
-                /*
-                    public int FldUserId { get; set; }
-                    public string? FldUsername { get; set; }
-                    public string? FldPassword { get; set; }
-                    public string? FldEmail { get; set; }
-                */
                 FldUserId= 1,
                 FldUsername = "Test1",
                 FldPassword = "TestPassword",
@@ -41,10 +54,10 @@ namespace XUnitTestProject
             mockSet.Verify(m => m.Add(It.IsAny<TblUser>()), Times.Once);
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
-
         [Fact]
         public void ModifyUserTest() //Look into this one later
         {
+            Log.Information(" Carrying out Modify user test");
             var Originaluser = new TblUser
             {
 
@@ -77,6 +90,7 @@ namespace XUnitTestProject
         [Fact]
         public void GetAllUsersTest()
         {
+            Log.Information(" Carrying out get all users test");
             var data = new List<TblUser>
             {
                 new TblUser
@@ -124,6 +138,7 @@ namespace XUnitTestProject
         [Fact]
         public void GetUsersOnUserIDTest()
         {
+            Log.Information(" Carrying out get user on userID test");
             var data = new List<TblUser>
             {
                 new TblUser
@@ -171,6 +186,7 @@ namespace XUnitTestProject
         [Fact]
         public void GetUsersOnUserEmailTest()
         {
+            Log.Information(" Carrying out get users on emailID test");
             var data = new List<TblUser>
             {
                 new TblUser
@@ -214,5 +230,7 @@ namespace XUnitTestProject
             Assert.Equal("TestPassword2", QueriedUsers[0].FldPassword);
             Assert.Equal("Test2@Test.com", QueriedUsers[0].FldEmail);
         }
+
+       
     }
 }

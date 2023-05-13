@@ -44,3 +44,4 @@
 2023-05-12 10:51:05.876 +02:00 [INF] Done setting up serilog!
 2023-05-12 13:05:48.622 +02:00 [INF] Done setting up serilog!
 2023-05-12 13:24:06.844 +02:00 [INF] Done setting up serilog!
+2023-05-13 10:37:06.438 +02:00 [INF] Done setting up serilog!
