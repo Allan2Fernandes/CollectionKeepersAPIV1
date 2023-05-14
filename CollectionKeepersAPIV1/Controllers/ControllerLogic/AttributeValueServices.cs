@@ -1,4 +1,5 @@
-﻿using CollectionKeepersAPIV1.Models;
+﻿using CollectionKeepersAPIV1.DataTransferObjects;
+using CollectionKeepersAPIV1.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
@@ -44,7 +45,7 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
             return QueriedList;
         }
 
-        public List<object> GetCollectionEntryOnID(int CollectionEntryID)
+        public List<GetCollectionEntryOnIDDTO> GetCollectionEntryOnID(int CollectionEntryID)
         {
             //Set up query
             var query = from AttributeValuesTable in ctx.TblAttributeValues
@@ -64,17 +65,17 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
                 };
 
             //Execute query
-            List<object> QueriedList = new List<object>();
+            List<GetCollectionEntryOnIDDTO> QueriedList = new List<GetCollectionEntryOnIDDTO>();
             foreach(var row in query)
             {
-                QueriedList.Add(new
+                QueriedList.Add(new GetCollectionEntryOnIDDTO
                 {
                     FldAttributeId = row.FldAttributeId,
-                    FldCollectionId = row.FldCollectionId,
+                    FldCollectionId = (int)row.FldCollectionId,
                     FldAttributeName = row.FldAttributeName,
                     FldAttributeValueId = row.FldAttributeValueId,
                     FldValue = row.FldValue,
-                    FldCollectionEntryId = row.FldCollectionEntryId
+                    FldCollectionEntryId = (int)row.FldCollectionEntryId
                 });
             }
 

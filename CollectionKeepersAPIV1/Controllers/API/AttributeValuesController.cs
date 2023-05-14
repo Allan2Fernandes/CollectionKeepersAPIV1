@@ -22,9 +22,9 @@ namespace CollectionKeepersAPIV1.Controllers.API
         }
 
         [HttpGet(nameof(GetCollectionEntry) + "/{CollectionEntryID}")]
-        public async Task<ActionResult<List<object>>> GetCollectionEntry(int CollectionEntryID)
+        public async Task<ActionResult<List<GetCollectionEntryOnIDDTO>>> GetCollectionEntry(int CollectionEntryID)
         {
-            List<object> QueriedList = services.GetCollectionEntryOnID(CollectionEntryID);
+            List<GetCollectionEntryOnIDDTO> QueriedList = services.GetCollectionEntryOnID(CollectionEntryID);
             return Ok(QueriedList);
         }
 
