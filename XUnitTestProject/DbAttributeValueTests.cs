@@ -36,7 +36,7 @@ public class DbAttributeValueTests : IDisposable
         service.CreatenewCollectionEntry();
         try
         {
-            mockSet.Verify(m => m.Add(It.IsAny<TblCollectionEntry>()), Times.Once);
+            mockSet.Verify(m => m.Add(It.IsAny<TblCollectionEntry>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
         catch (Exception e)
@@ -64,7 +64,43 @@ public class DbAttributeValueTests : IDisposable
         });
         try
         {
-            mockSet.Verify(m => m.AddRange(It.IsAny<TblAttributeValue[]>()), Times.Once);
+            mockSet.Verify(m => m.AddRange(It.IsAny<TblAttributeValue[]>()), Times.Once());
+            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            throw;
+        }
+    }
+    
+    [Fact]
+    public void UpdateAttributeValueTest()
+    {
+        Log.Information("Carrying out test to update an attribute value");
+
+        TblAttributeValue OriginalAttributeValue = new TblAttributeValue
+        {
+            FldAttributeId = 5,
+            FldCollectionEntryId = 1,
+            FldValue = "Iphone"
+        };
+        
+        TblAttributeValue UpdatedAttributeValueDetails = new TblAttributeValue
+        {
+            FldAttributeId = 5,
+            FldCollectionEntryId = 1,
+            FldValue = "Nokia"
+        };
+        
+        var mockSet = new Mock<DbSet<TblAttributeValue>>();
+        var mockContext = new Mock<CollectionsDbContext>();
+        mockContext.Setup(m => m.TblAttributeValues).Returns(mockSet.Object);
+
+        var service = new AttributeValueServices(mockContext.Object);
+        service.UpdateAttributeValue(OriginalAttributeValue, UpdatedAttributeValueDetails);
+        try
+        {
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
         catch (Exception e)
