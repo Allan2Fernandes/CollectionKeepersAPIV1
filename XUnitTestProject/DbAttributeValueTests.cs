@@ -45,4 +45,32 @@ public class DbAttributeValueTests : IDisposable
             throw;
         }
     }
+    
+    [Fact]
+    public void AddListOfAttributeValues()
+    {
+        Log.Information("Carrying out Add New Collection Entry test");
+            
+        var mockSet = new Mock<DbSet<TblAttributeValue>>();
+        var mockContext = new Mock<CollectionsDbContext>();
+        mockContext.Setup(m => m.TblAttributeValues).Returns(mockSet.Object);
+
+        var service = new AttributeValueServices(mockContext.Object);
+        service.AddListofAttributeValues(new TblAttributeValue[]
+        {
+            new TblAttributeValue(),
+            new TblAttributeValue(),
+            new TblAttributeValue()
+        });
+        try
+        {
+            mockSet.Verify(m => m.AddRange(It.IsAny<TblAttributeValue[]>()), Times.Once);
+            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.Message);
+            throw;
+        }
+    }
 }
