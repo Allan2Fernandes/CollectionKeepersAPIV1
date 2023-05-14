@@ -41,7 +41,7 @@ namespace CollectionKeepersAPIV1.Controllers
             //TODO: Check that the email id doesn't already exist in the db before adding a new user with that email
             List<TblUser> QueriedUsers = UserServices.GetUsersOnEmail(Email);
 
-            if (QueriedUsers.Count != 0)
+            if (!Functions.Functions.IsListEmpty(QueriedUsers))
             {
                 return Ok("Email ID already in DB");
             }
@@ -59,7 +59,7 @@ namespace CollectionKeepersAPIV1.Controllers
 
             List<TblUser> QueriedUsers = UserServices.GetUsersOnEmail(Email);
 
-            if (QueriedUsers.Count == 0)
+            if (Functions.Functions.IsListEmpty(QueriedUsers))
             {
                 return Ok(ErrorMessage);
             }
@@ -81,7 +81,7 @@ namespace CollectionKeepersAPIV1.Controllers
         {
             List<TblUser> QueriedAccounts = UserServices.GetUsersOnID(NewUserDetails.FldUserId);
 
-            if(QueriedAccounts.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedAccounts))
             {
                 return Ok("Account not found");
             }
@@ -103,7 +103,7 @@ namespace CollectionKeepersAPIV1.Controllers
             //Find the user
             List<TblUser> QueriedAccounts = UserServices.GetUsersOnID(UserID);
 
-            if (QueriedAccounts.Count == 0)
+            if (Functions.Functions.IsListEmpty(QueriedAccounts))
             {
                 return Ok("Account not found");
             }

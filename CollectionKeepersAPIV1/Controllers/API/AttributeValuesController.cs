@@ -68,7 +68,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             // Get the new attribute value
             List<TblAttributeValue> QueriedList = services.GetAttributeValueOnID(NewAttributeValue.FldAttributeValueId);
 
-            if(QueriedList.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedList))
             {
                 return Ok($"The row couldn't be found with the ID {NewAttributeValue.FldAttributeValueId}");
             }
@@ -87,7 +87,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             List<TblCollectionEntry> QueriedListCollectionEntries = await ctx.TblCollectionEntries
                 .Where(row => row.FldCollectionEntryId == CollectionEntryID).ToListAsync();
             //If the list is empty
-            if(QueriedListCollectionEntries.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedListCollectionEntries))
             {
                 return Ok($"There is no collection entry with the ID {CollectionEntryID}");
             }

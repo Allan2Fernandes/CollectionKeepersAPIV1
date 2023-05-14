@@ -12,7 +12,6 @@ namespace CollectionKeepersAPIV1.Controllers
         public MainController() 
         {
            log = Log.Logger.ForContext<MainController>();
-
         } 
 
         [HttpGet(nameof(CheckIfOnline))]

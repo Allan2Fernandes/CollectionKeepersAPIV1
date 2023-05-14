@@ -31,7 +31,7 @@ namespace CollectionKeepersAPIV1.Controllers
             //Get the user with that ID. Make sure the user exists
             List<TblUser> ListOfQueriedUsers = UserService.GetUsersOnID((int)Collection.FldUserId);
 
-            if (ListOfQueriedUsers.Count == 0)
+            if (Functions.Functions.IsListEmpty(ListOfQueriedUsers))
             {
                 return NotFound($"User With ID {Collection.FldUserId} not found");
             }
@@ -101,7 +101,7 @@ namespace CollectionKeepersAPIV1.Controllers
             //Find the correct collection
             List<TblCollection> ListOfQueriedCollections = CollectionsService.GetCollectionsOnCollectionID(NewCollectionDetails.FldCollectionId);
 
-            if(ListOfQueriedCollections.Count == 0)
+            if(Functions.Functions.IsListEmpty(ListOfQueriedCollections))
             {
                 return Ok("Collection not found");
             }
@@ -119,7 +119,7 @@ namespace CollectionKeepersAPIV1.Controllers
         {
             List<TblCollection> ListOfQueriedCollections = await ctx.TblCollections.Where(Collection => CollectionID == Collection.FldCollectionId).ToListAsync();
 
-            if(ListOfQueriedCollections.Count == 0)
+            if(Functions.Functions.IsListEmpty(ListOfQueriedCollections))
             {
                 return Ok("Collection not found");
             }

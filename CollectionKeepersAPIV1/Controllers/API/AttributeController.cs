@@ -45,7 +45,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
         public async Task<ActionResult<TblAttribute>> GetAttributeOnID(int AttributeID)
         {
             List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(AttributeID);
-            if (QueriedList.Count == 0)
+            if (Functions.Functions.IsListEmpty(QueriedList))
             {
                 return Ok("Attribute not found");
             }
@@ -61,13 +61,13 @@ namespace CollectionKeepersAPIV1.Controllers.API
         {
             //Get the attribute to be modified
             List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(NewAttribute.FldAttributeId);
-            if(QueriedList.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedList))
             {
                 return Ok("Couldn't find the attribute to be modified");
             }         
             //Check if the CollectionID is valid
             List<TblCollection> QueriedCollectionsList = CollectionService.GetCollectionsOnCollectionID((int)NewAttribute.FldCollectionId);
-            if(QueriedCollectionsList.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedCollectionsList))
             {
                 return Ok($"The collection with ID {NewAttribute.FldCollectionId} doesn't exist");
             }
@@ -89,7 +89,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
         {
             //Find the Attribute with that ID
             List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(AttributeID);
-            if(QueriedList.Count == 0)
+            if(Functions.Functions.IsListEmpty(QueriedList))
             {
                 return Ok($"Attribute with the ID {AttributeID} not found");
             }           
