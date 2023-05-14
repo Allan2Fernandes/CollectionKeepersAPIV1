@@ -105,7 +105,7 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
             return ListOfCollectionEntryIDs.Distinct().ToList();
         }
 
-        public List<object> GetAllAttributeValuesForACollection(int CollectionID)
+        public List<GetAllAttributeValuesForACollectionDTO> GetAllAttributeValuesForACollection(int CollectionID)
         {
             var query = from Collections in ctx.TblCollections
                         join Attributes in ctx.TblAttributes on Collections.FldCollectionId equals Attributes.FldCollectionId
@@ -126,22 +126,22 @@ namespace CollectionKeepersAPIV1.Controllers.ControllerLogic
                             AttributeValues.FldValue,
                             AttributeValues.FldCollectionEntryId
                         };
-            List<object> ReturnedData = new List<object>(); 
+            List<GetAllAttributeValuesForACollectionDTO> ReturnedData = new List<GetAllAttributeValuesForACollectionDTO>(); 
             foreach(var row in query)
             {
-                var MyData = new
+                var MyData = new GetAllAttributeValuesForACollectionDTO
                 {
                     FldCollectionId = row.FldCollectionId,
-                    FldUserId = row.FldUserId,
+                    FldUserId = (int)row.FldUserId,
                     FldCollectionName = row.FldCollectionName,
                     FldCollectionDescription = row.FldCollectionDescription,
                     FldCollectionThumbnail = row.FldCollectionThumbnail,
-                    FldIsPrivate = row.FldIsPrivate,
+                    FldIsPrivate = (bool)row.FldIsPrivate,
                     FldAttributeId = row.FldAttributeId,
                     FldAttributeName = row.FldAttributeName,
                     FldAttributeValueId = row.FldAttributeValueId,
                     FldValue = row.FldValue,
-                    FldCollectionEntryId = row.FldCollectionEntryId 
+                    FldCollectionEntryId = (int)row.FldCollectionEntryId 
                 };
                 ReturnedData.Add(MyData);
             }

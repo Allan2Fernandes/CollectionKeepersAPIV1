@@ -56,9 +56,9 @@ namespace CollectionKeepersAPIV1.Controllers.API
         }
 
         [HttpGet(nameof(GetAllAttributeValuesForCollection) + "/{CollectionID}")]
-        public async Task<ActionResult<List<object>>> GetAllAttributeValuesForCollection(int CollectionID)
+        public async Task<ActionResult<List<GetAllAttributeValuesForACollectionDTO>>> GetAllAttributeValuesForCollection(int CollectionID)
         {
-            List<object> ReturnedData = services.GetAllAttributeValuesForACollection(CollectionID);
+            List<GetAllAttributeValuesForACollectionDTO> ReturnedData = services.GetAllAttributeValuesForACollection(CollectionID);
             return Ok(ReturnedData);                
         }
 
