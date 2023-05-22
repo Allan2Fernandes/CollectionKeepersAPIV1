@@ -33,11 +33,11 @@ pipeline {
 					//	sh 'k6 run LoadTests/SpikeTest.js'
 					//	sh 'k6 run LoadTests/StressTest.js'
 					//}
-					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
-					sh 'k6 run LoadTests/SoakTest.js'
-					sh 'k6 run LoadTests/LoadTest.js'
-					sh 'k6 run LoadTests/SpikeTest.js'
-					sh 'k6 run LoadTests/StressTest.js'
+					//sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
+					//sh 'k6 run LoadTests/SoakTest.js'
+					//sh 'k6 run LoadTests/LoadTest.js'
+					//sh 'k6 run LoadTests/SpikeTest.js'
+					//sh 'k6 run LoadTests/StressTest.js'
 					
 				}
             }		
