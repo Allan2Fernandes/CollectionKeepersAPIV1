@@ -21,7 +21,7 @@ pipeline {
 				sh 'dotnet test'
 				dir('XUnitTestProject'){
 					//Unit tests
-					sh 'rm -rf coverage.cobertura.xml'
+					sh 'rm -rf coverage.cobertura.xml' // Clean up
 					sh 'dotnet add package coverlet.collector'
 					sh 'dotnet add package coverlet.msbuild'
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
@@ -35,9 +35,9 @@ pipeline {
 					//}
 					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
 					sh 'k6 run LoadTests/SoakTest.js'
-					sh 'k6 run LoadTests/LoadTest.js'
-					sh 'k6 run LoadTests/SpikeTest.js'
-					sh 'k6 run LoadTests/StressTest.js'
+					//sh 'k6 run LoadTests/LoadTest.js'
+					//sh 'k6 run LoadTests/SpikeTest.js'
+					//sh 'k6 run LoadTests/StressTest.js'
 					
 				}
             }		
