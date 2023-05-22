@@ -12,9 +12,9 @@ export let options = {
     },
     stages:
         [
-            { duration: '5m', target: 200 }, // Simulate ramp up
-            { duration: '10m', target: 200 }, // Maintain 
-            { duration: '5m', target: 0 }, // Ramp down
+            { duration: '3m', target: 200 }, // Simulate ramp up
+            { duration: '5m', target: 200 }, // Maintain 
+            { duration: '3m', target: 0 }, // Ramp down
         ]
 };
 
