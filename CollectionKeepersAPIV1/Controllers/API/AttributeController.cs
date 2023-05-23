@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CollectionKeepersAPIV1.Controllers.API
 {
@@ -28,10 +29,13 @@ namespace CollectionKeepersAPIV1.Controllers.API
         [HttpPost(nameof(CreateAttribute))]
         public async Task<ActionResult<string>> CreateAttribute(TblAttribute Entry)
         {
+            
+            Log.Logger.Information("Creating attribute" + Entry.FldAttributeName);
             //Check if there exists an attribute with that name
             
             if(AttributeService.CheckIfAttributeExistsInCollection(Entry))
             {
+                Log.Logger.Error($"There is another another Entry with the name {Entry.FldAttributeName} in the database for the collection with the following name: {Entry.FldAttributeName}.");
                 return Ok($"Attribute with the name {Entry.FldAttributeName} already exists for the collection with ID: {Entry.FldCollectionId}");
             }
             else
@@ -59,6 +63,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
         [HttpPut(nameof(ModifyAttribute))]
         public async Task<ActionResult<string>> ModifyAttribute(TblAttribute NewAttribute)
         {
+            Log.Logger.Information($"Modifying attribute... {NewAttribute.FldAttributeName}");
             //Get the attribute to be modified
             List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(NewAttribute.FldAttributeId);
             if(Functions.Functions.IsListEmpty(QueriedList))
@@ -69,6 +74,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             List<TblCollection> QueriedCollectionsList = CollectionService.GetCollectionsOnCollectionID((int)NewAttribute.FldCollectionId);
             if(Functions.Functions.IsListEmpty(QueriedCollectionsList))
             {
+                Log.Logger.Fatal($"A collection with the ID {NewAttribute.FldCollectionId} does not exist.");
                 return Ok($"The collection with ID {NewAttribute.FldCollectionId} doesn't exist");
             }
 
@@ -91,6 +97,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             List<TblAttribute> QueriedList = AttributeService.GetAttributesOnAttributeID(AttributeID);
             if(Functions.Functions.IsListEmpty(QueriedList))
             {
+                Log.Logger.Warning($"An attribute with the ID {AttributeID} could not be found.");
                 return Ok($"Attribute with the ID {AttributeID} not found");
             }           
 
@@ -114,6 +121,7 @@ namespace CollectionKeepersAPIV1.Controllers.API
             //Delete the associated collection entries
             ctx.TblCollectionEntries.RemoveRange(ConnectedCollectionEntries);
             await ctx.SaveChangesAsync();
+            Log.Logger.Information($"The attribute with the id {AttributeID} has been deleted.");
             return Ok($"Attribute with the ID {AttributeID} was deleted");
         }
 
