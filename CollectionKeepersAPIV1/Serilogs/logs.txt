@@ -1,114 +1,186 @@
-2023-05-10 14:02:07.173 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:02:19.060 +02:00 [INF] Logging index model!
-2023-05-10 14:02:58.192 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:03:39.365 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:03:53.599 +02:00 [INF] API Online!!!
-2023-05-10 14:04:20.342 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:04:26.714 +02:00 [INF] API Online!!!
-2023-05-10 14:04:26.935 +02:00 [INF] API Online!!!
-2023-05-10 14:04:27.188 +02:00 [INF] API Online!!!
-2023-05-10 14:04:27.436 +02:00 [INF] API Online!!!
-2023-05-10 14:04:27.710 +02:00 [INF] API Online!!!
-2023-05-10 14:04:27.961 +02:00 [INF] API Online!!!
-2023-05-10 14:20:57.779 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:29:00.746 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:31:30.621 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:31:42.840 +02:00 [INF] API Online!!!
-2023-05-10 14:31:43.859 +02:00 [INF] API Online!!!
-2023-05-10 14:32:15.899 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:32:34.374 +02:00 [INF] API Online!!!
-2023-05-10 14:32:34.792 +02:00 [INF] API Online!!!
-2023-05-10 14:32:35.316 +02:00 [INF] API Online!!!
-2023-05-10 14:32:35.745 +02:00 [INF] API Online!!!
-2023-05-10 14:40:01.097 +02:00 [INF] Done setting up serilog!
-2023-05-10 14:40:06.430 +02:00 [INF] API Online!!!
-2023-05-10 14:58:32.526 +02:00 [INF] Done setting up serilog!
-2023-05-12 08:22:48.431 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:44:48.188 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:45:13.934 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:46:36.756 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:47:21.110 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:51:35.866 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:51:57.741 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:52:02.573 +02:00 [INF] API Online!!!
-2023-05-12 09:52:30.562 +02:00 [INF] Done setting up serilog!
-2023-05-12 09:52:39.429 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:05:44.189 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:12:17.436 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:14:14.768 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:18:21.814 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:30:22.742 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:31:07.573 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:43:57.915 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:47:05.920 +02:00 [INF] Done setting up serilog!
-2023-05-12 10:51:05.876 +02:00 [INF] Done setting up serilog!
-2023-05-12 13:05:48.622 +02:00 [INF] Done setting up serilog!
-2023-05-12 13:24:06.844 +02:00 [INF] Done setting up serilog!
-2023-05-13 10:37:06.438 +02:00 [INF] Done setting up serilog!
-2023-05-13 11:36:08.007 +02:00 [INF] Done setting up serilog!
-2023-05-13 11:59:11.217 +02:00 [INF] Done setting up serilog!
-2023-05-13 12:03:00.577 +02:00 [INF] Done setting up serilog!
-2023-05-13 12:04:51.921 +02:00 [INF] Done setting up serilog!
-2023-05-13 12:05:47.047 +02:00 [INF] Done setting up serilog!
-2023-05-13 12:06:01.892 +02:00 [INF] Done setting up serilog!
-2023-05-13 12:36:12.607 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:11:00.502 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:24:21.357 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:33:27.326 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:34:31.121 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 14:37:42.681 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 14:37:42.683 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 14:42:10.642 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 14:49:33.034 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:56:47.412 +02:00 [INF] Done setting up serilog!
-2023-05-13 14:57:09.870 +02:00 [INF] 10
-2023-05-13 14:57:09.871 +02:00 [INF] 12
-2023-05-13 15:00:15.748 +02:00 [INF] Done setting up serilog!
-2023-05-13 15:00:34.502 +02:00 [INF] List of Connected Attribute IDs are:
-2023-05-13 15:00:34.503 +02:00 [INF] 10
-2023-05-13 15:00:34.504 +02:00 [INF] 12
-2023-05-13 15:00:34.565 +02:00 [INF] List of connected Attribute value IDs are: 
-2023-05-13 15:00:34.598 +02:00 [INF] List of Connected Collection entries are: 
-2023-05-13 15:15:32.895 +02:00 [INF] Done setting up serilog!
-2023-05-13 15:15:47.743 +02:00 [INF] List of Connected Attribute IDs are:
-2023-05-13 15:15:47.745 +02:00 [INF] 10
-2023-05-13 15:15:47.745 +02:00 [INF] 12
-2023-05-13 15:15:47.803 +02:00 [INF] List of Connected Attribute values are: 
-2023-05-13 15:15:47.804 +02:00 [INF] List of connected Attribute value IDs are: 
-2023-05-13 15:15:47.836 +02:00 [INF] List of Connected Collection entries are: 
-2023-05-13 15:27:51.344 +02:00 [INF] Done setting up serilog!
-2023-05-13 15:28:08.659 +02:00 [INF] List of Connected Attribute IDs are:
-2023-05-13 15:28:08.661 +02:00 [INF] 10
-2023-05-13 15:28:08.662 +02:00 [INF] 12
-2023-05-13 15:28:08.735 +02:00 [INF] List of Connected Attribute values are: 
-2023-05-13 15:28:08.736 +02:00 [INF] 16
-2023-05-13 15:28:08.736 +02:00 [INF] 18
-2023-05-13 15:28:08.737 +02:00 [INF] 19
-2023-05-13 15:28:08.738 +02:00 [INF] List of connected Attribute value IDs are: 
-2023-05-13 15:28:08.739 +02:00 [INF] 16
-2023-05-13 15:28:08.739 +02:00 [INF] 18
-2023-05-13 15:28:08.740 +02:00 [INF] 19
-2023-05-13 15:28:08.777 +02:00 [INF] List of Connected Collection entries are: 
-2023-05-13 15:35:07.109 +02:00 [INF] Done setting up serilog!
-2023-05-13 15:38:09.609 +02:00 [INF] List of Connected Attribute IDs are:
-2023-05-13 15:38:09.611 +02:00 [INF] 13
-2023-05-13 15:38:09.612 +02:00 [INF] 14
-2023-05-13 15:38:09.672 +02:00 [INF] List of Connected Attribute values are: 
-2023-05-13 15:38:09.673 +02:00 [INF] 20
-2023-05-13 15:38:09.674 +02:00 [INF] 21
-2023-05-13 15:38:09.675 +02:00 [INF] 22
-2023-05-13 15:38:09.676 +02:00 [INF] 23
-2023-05-13 15:38:09.716 +02:00 [INF] List of Connected Collection entries are: 
-2023-05-13 15:38:09.717 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 15:38:09.718 +02:00 [INF] CollectionKeepersAPIV1.Models.TblCollectionEntry
-2023-05-13 15:44:50.755 +02:00 [INF] Done setting up serilog!
-2023-05-13 21:04:30.717 +02:00 [INF] Done setting up serilog!
-2023-05-13 21:08:34.028 +02:00 [INF] Done setting up serilog!
-2023-05-14 13:31:53.309 +02:00 [INF] Done setting up serilog!
-2023-05-14 13:42:11.157 +02:00 [INF] Done setting up serilog!
-2023-05-14 13:56:15.113 +02:00 [INF] Done setting up serilog!
-2023-05-14 17:06:36.630 +02:00 [INF] Done setting up serilog!
-2023-05-17 19:59:45.468 +02:00 [INF] Done setting up serilog!
-2023-05-17 20:12:01.460 +02:00 [INF] Done setting up serilog!
-2023-05-17 20:16:49.565 +02:00 [INF] Done setting up serilog!
-2023-05-21 16:55:08.043 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:41:59.907 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:42:10.921 +02:00 [INF] Logging in Main
+2023-05-23 14:42:11.733 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.002 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.142 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.406 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.532 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.661 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.795 +02:00 [INF] Logging in Main
+2023-05-23 14:42:12.923 +02:00 [INF] Logging in Main
+2023-05-23 14:46:21.568 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:46:34.102 +02:00 [INF] Logging in Main
+2023-05-23 14:46:34.312 +02:00 [INF] Logging in Main
+2023-05-23 14:46:34.441 +02:00 [INF] Logging in Main
+2023-05-23 14:46:34.552 +02:00 [INF] Logging in Main
+2023-05-23 14:46:34.687 +02:00 [INF] Logging in Main
+2023-05-23 14:48:20.599 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:48:26.776 +02:00 [INF] Logging in Main
+2023-05-23 14:48:27.301 +02:00 [INF] Logging in Main
+2023-05-23 14:48:27.643 +02:00 [INF] Logging in Main
+2023-05-23 14:48:27.773 +02:00 [INF] Logging in Main
+2023-05-23 14:48:27.900 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.046 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.172 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.309 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.477 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.604 +02:00 [INF] Logging in Main
+2023-05-23 14:48:28.715 +02:00 [INF] Logging in Main
+2023-05-23 14:50:03.986 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:50:12.359 +02:00 [INF] Logging in Main
+2023-05-23 14:50:12.495 +02:00 [INF] Logging in Main
+2023-05-23 14:50:12.615 +02:00 [INF] Logging in Main
+2023-05-23 14:50:12.758 +02:00 [INF] Logging in Main
+2023-05-23 14:50:12.877 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.005 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.150 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.272 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.404 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.532 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.670 +02:00 [INF] Logging in Main
+2023-05-23 14:50:13.803 +02:00 [INF] Logging in Main
+2023-05-23 14:51:22.699 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:51:29.632 +02:00 [INF] Logging in Main
+2023-05-23 14:51:29.781 +02:00 [INF] Logging in Main
+2023-05-23 14:51:29.895 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.024 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.149 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.268 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.396 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.523 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.651 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.796 +02:00 [INF] Logging in Main
+2023-05-23 14:51:30.916 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.036 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.188 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.355 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.487 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.627 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.742 +02:00 [INF] Logging in Main
+2023-05-23 14:51:31.887 +02:00 [INF] Logging in Main
+2023-05-23 14:51:32.012 +02:00 [INF] Logging in Main
+2023-05-23 14:51:32.156 +02:00 [INF] Logging in Main
+2023-05-23 14:52:31.091 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:52:41.219 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.014 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.400 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.557 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.709 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.828 +02:00 [INF] Logging in Main
+2023-05-23 14:52:42.964 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.094 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.222 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.341 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.484 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.623 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.764 +02:00 [INF] Logging in Main
+2023-05-23 14:52:43.900 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.022 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.173 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.284 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.437 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.571 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.716 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.860 +02:00 [INF] Logging in Main
+2023-05-23 14:52:44.995 +02:00 [INF] Logging in Main
+2023-05-23 14:53:32.536 +02:00 [INF] Done setting up serilog!
+2023-05-23 14:53:37.140 +02:00 [INF] Logging in Main count = 0
+2023-05-23 14:53:37.141 +02:00 [INF] Logging in Main count = 1
+2023-05-23 14:53:37.142 +02:00 [INF] Logging in Main count = 2
+2023-05-23 14:53:37.142 +02:00 [INF] Logging in Main count = 3
+2023-05-23 14:53:37.143 +02:00 [INF] Logging in Main count = 4
+2023-05-23 14:53:37.144 +02:00 [INF] Logging in Main count = 5
+2023-05-23 14:53:37.144 +02:00 [INF] Logging in Main count = 6
+2023-05-23 14:53:37.145 +02:00 [INF] Logging in Main count = 7
+2023-05-23 14:53:37.145 +02:00 [INF] Logging in Main count = 8
+2023-05-23 14:53:37.146 +02:00 [INF] Logging in Main count = 9
+2023-05-23 14:53:37.147 +02:00 [INF] Logging in Main count = 10
+2023-05-23 14:53:37.147 +02:00 [INF] Logging in Main count = 11
+2023-05-23 14:53:37.148 +02:00 [INF] Logging in Main count = 12
+2023-05-23 14:53:37.149 +02:00 [INF] Logging in Main count = 13
+2023-05-23 14:53:37.149 +02:00 [INF] Logging in Main count = 14
+2023-05-23 14:53:37.150 +02:00 [INF] Logging in Main count = 15
+2023-05-23 14:53:37.151 +02:00 [INF] Logging in Main count = 16
+2023-05-23 14:53:37.151 +02:00 [INF] Logging in Main count = 17
+2023-05-23 14:53:37.152 +02:00 [INF] Logging in Main count = 18
+2023-05-23 14:53:37.153 +02:00 [INF] Logging in Main count = 19
+2023-05-23 14:53:37.153 +02:00 [INF] Logging in Main count = 20
+2023-05-23 14:53:37.154 +02:00 [INF] Logging in Main count = 21
+2023-05-23 14:53:37.155 +02:00 [INF] Logging in Main count = 22
+2023-05-23 14:53:37.156 +02:00 [INF] Logging in Main count = 23
+2023-05-23 14:53:37.156 +02:00 [INF] Logging in Main count = 24
+2023-05-23 14:53:37.157 +02:00 [INF] Logging in Main count = 25
+2023-05-23 14:53:37.158 +02:00 [INF] Logging in Main count = 26
+2023-05-23 14:53:37.159 +02:00 [INF] Logging in Main count = 27
+2023-05-23 14:53:37.160 +02:00 [INF] Logging in Main count = 28
+2023-05-23 14:53:37.160 +02:00 [INF] Logging in Main count = 29
+2023-05-23 14:53:37.161 +02:00 [INF] Logging in Main count = 30
+2023-05-23 14:53:37.162 +02:00 [INF] Logging in Main count = 31
+2023-05-23 14:53:37.162 +02:00 [INF] Logging in Main count = 32
+2023-05-23 14:53:37.163 +02:00 [INF] Logging in Main count = 33
+2023-05-23 14:53:37.164 +02:00 [INF] Logging in Main count = 34
+2023-05-23 14:53:37.165 +02:00 [INF] Logging in Main count = 35
+2023-05-23 14:53:37.165 +02:00 [INF] Logging in Main count = 36
+2023-05-23 14:53:37.166 +02:00 [INF] Logging in Main count = 37
+2023-05-23 14:53:37.167 +02:00 [INF] Logging in Main count = 38
+2023-05-23 14:53:37.167 +02:00 [INF] Logging in Main count = 39
+2023-05-23 14:53:37.168 +02:00 [INF] Logging in Main count = 40
+2023-05-23 14:53:37.169 +02:00 [INF] Logging in Main count = 41
+2023-05-23 14:53:37.170 +02:00 [INF] Logging in Main count = 42
+2023-05-23 14:53:37.170 +02:00 [INF] Logging in Main count = 43
+2023-05-23 14:53:37.171 +02:00 [INF] Logging in Main count = 44
+2023-05-23 14:53:37.172 +02:00 [INF] Logging in Main count = 45
+2023-05-23 14:53:37.173 +02:00 [INF] Logging in Main count = 46
+2023-05-23 14:53:37.174 +02:00 [INF] Logging in Main count = 47
+2023-05-23 14:53:37.175 +02:00 [INF] Logging in Main count = 48
+2023-05-23 14:53:37.176 +02:00 [INF] Logging in Main count = 49
+2023-05-23 14:53:38.957 +02:00 [INF] Logging in Main count = 0
+2023-05-23 14:53:38.963 +02:00 [INF] Logging in Main count = 1
+2023-05-23 14:53:38.964 +02:00 [INF] Logging in Main count = 2
+2023-05-23 14:53:38.965 +02:00 [INF] Logging in Main count = 3
+2023-05-23 14:53:38.965 +02:00 [INF] Logging in Main count = 4
+2023-05-23 14:53:38.966 +02:00 [INF] Logging in Main count = 5
+2023-05-23 14:53:38.967 +02:00 [INF] Logging in Main count = 6
+2023-05-23 14:53:38.968 +02:00 [INF] Logging in Main count = 7
+2023-05-23 14:53:38.968 +02:00 [INF] Logging in Main count = 8
+2023-05-23 14:53:38.969 +02:00 [INF] Logging in Main count = 9
+2023-05-23 14:53:38.970 +02:00 [INF] Logging in Main count = 10
+2023-05-23 14:53:38.971 +02:00 [INF] Logging in Main count = 11
+2023-05-23 14:53:38.971 +02:00 [INF] Logging in Main count = 12
+2023-05-23 14:53:38.972 +02:00 [INF] Logging in Main count = 13
+2023-05-23 14:53:38.973 +02:00 [INF] Logging in Main count = 14
+2023-05-23 14:53:38.974 +02:00 [INF] Logging in Main count = 15
+2023-05-23 14:53:38.975 +02:00 [INF] Logging in Main count = 16
+2023-05-23 14:53:38.976 +02:00 [INF] Logging in Main count = 17
+2023-05-23 14:53:38.978 +02:00 [INF] Logging in Main count = 18
+2023-05-23 14:53:38.980 +02:00 [INF] Logging in Main count = 19
+2023-05-23 14:53:38.980 +02:00 [INF] Logging in Main count = 20
+2023-05-23 14:53:38.981 +02:00 [INF] Logging in Main count = 21
+2023-05-23 14:53:38.982 +02:00 [INF] Logging in Main count = 22
+2023-05-23 14:53:38.983 +02:00 [INF] Logging in Main count = 23
+2023-05-23 14:53:38.984 +02:00 [INF] Logging in Main count = 24
+2023-05-23 14:53:38.984 +02:00 [INF] Logging in Main count = 25
+2023-05-23 14:53:38.985 +02:00 [INF] Logging in Main count = 26
+2023-05-23 14:53:38.986 +02:00 [INF] Logging in Main count = 27
+2023-05-23 14:53:38.987 +02:00 [INF] Logging in Main count = 28
+2023-05-23 14:53:38.987 +02:00 [INF] Logging in Main count = 29
+2023-05-23 14:53:38.988 +02:00 [INF] Logging in Main count = 30
+2023-05-23 14:53:38.989 +02:00 [INF] Logging in Main count = 31
+2023-05-23 14:53:38.990 +02:00 [INF] Logging in Main count = 32
+2023-05-23 14:53:38.991 +02:00 [INF] Logging in Main count = 33
+2023-05-23 14:53:38.991 +02:00 [INF] Logging in Main count = 34
+2023-05-23 14:53:38.992 +02:00 [INF] Logging in Main count = 35
+2023-05-23 14:53:38.993 +02:00 [INF] Logging in Main count = 36
+2023-05-23 14:53:38.994 +02:00 [INF] Logging in Main count = 37
+2023-05-23 14:53:38.995 +02:00 [INF] Logging in Main count = 38
+2023-05-23 14:53:38.996 +02:00 [INF] Logging in Main count = 39
+2023-05-23 14:53:38.996 +02:00 [INF] Logging in Main count = 40
+2023-05-23 14:53:38.997 +02:00 [INF] Logging in Main count = 41
+2023-05-23 14:53:38.998 +02:00 [INF] Logging in Main count = 42
+2023-05-23 14:53:38.999 +02:00 [INF] Logging in Main count = 43
+2023-05-23 14:53:38.999 +02:00 [INF] Logging in Main count = 44
+2023-05-23 14:53:39.000 +02:00 [INF] Logging in Main count = 45
+2023-05-23 14:53:39.001 +02:00 [INF] Logging in Main count = 46
+2023-05-23 14:53:39.001 +02:00 [INF] Logging in Main count = 47
+2023-05-23 14:53:39.002 +02:00 [INF] Logging in Main count = 48
+2023-05-23 14:53:39.003 +02:00 [INF] Logging in Main count = 49

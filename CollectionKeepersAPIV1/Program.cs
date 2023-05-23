@@ -38,14 +38,13 @@ public class Program
         */
 
         // Serilog
-        using var log = new LoggerConfiguration() //new
+        var log = new LoggerConfiguration() //new
             .WriteTo.Console()
             .WriteTo.File("./Serilogs/logs.txt")
-            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://10.176.88.60:9200"))
             {
-                DetectElasticsearchVersion = false,
-                AutoRegisterTemplate = true,
-                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+                AutoRegisterTemplate= true,
+                BatchPostingLimit=1,
             })
             .CreateLogger();
         Log.Logger = log; //new 

@@ -8,16 +8,19 @@ namespace CollectionKeepersAPIV1.Controllers
     [ApiController]
     public class MainController : ControllerBase
     {
-        private readonly Serilog.ILogger log; 
+    
         public MainController() 
         {
-           log = Log.Logger.ForContext<MainController>();
+         
         } 
 
         [HttpGet(nameof(CheckIfOnline))]
         public async Task<ActionResult<string>> CheckIfOnline()
         {
-            log.Information("API Online!!!");
+            for(int i= 0; i<50; i++)
+            {
+                Log.Logger.Information("Logging in Main count = " + i);
+            }
             return Ok("Online");
         }
     }
