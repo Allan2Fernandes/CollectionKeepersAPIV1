@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
 using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
@@ -19,10 +20,15 @@ namespace XUnitTestProject
     {
         public DbUserTests(ITestOutputHelper output) 
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.TestOutput(output)
-                .WriteTo.File("./TestSerilogs/DbUserTestLogs.txt")
-                .CreateLogger();
+            Log.Logger = new LoggerConfiguration() //new
+            .WriteTo.Console()
+            .WriteTo.File("./Serilogs/logs.txt")
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://10.176.88.60:9200"))
+            {
+                AutoRegisterTemplate = true,
+                BatchPostingLimit = 1,
+            })
+            .CreateLogger();
         }
 
         public void Dispose()
@@ -54,7 +60,6 @@ namespace XUnitTestProject
             }
             catch (Exception e)
             {
-                Log.Error(e.Message);
                 Log.Error(e.Message);
                 throw;
             }
@@ -155,7 +160,6 @@ namespace XUnitTestProject
                 Log.Error(e.Message);
                 throw;
             }
-
         }
 
         [Fact]

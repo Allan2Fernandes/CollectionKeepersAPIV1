@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog;
 using Xunit.Abstractions;
+using Serilog.Sinks.Elasticsearch;
 
 namespace XUnitTestProject
 {
@@ -16,11 +17,16 @@ namespace XUnitTestProject
     {
         public DbCollectionTests(ITestOutputHelper output) 
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.TestOutput(output)
-                .WriteTo.File("./TestSerilogs/DbCollectionTestLogs.txt")
-                .CreateLogger();
-            
+            Log.Logger = new LoggerConfiguration() //new
+            .WriteTo.Console()
+            .WriteTo.File("./Serilogs/logs.txt")
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://10.176.88.60:9200"))
+            {
+                AutoRegisterTemplate = true,
+                BatchPostingLimit = 1,
+            })
+            .CreateLogger();
+
         }
 
         public void Dispose()

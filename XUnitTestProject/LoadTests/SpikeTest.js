@@ -16,8 +16,8 @@ export let options = {
             { duration: '1m', target: 15 }, // Maintain this load for some time
             { duration: '10s', target: 300 }, // Ramp up to normal load
             { duration: '1m', target: 300 }, // Maintain normal load
-            { duration: '10s', target: 15 }, // Beyond breaking point
-            { duration: '20s', target: 15 }, // Maintain this load
+            { duration: '10s', target: 1500 }, // Beyond breaking point
+            { duration: '20s', target: 1500 }, // Maintain this load
             { duration: '5s', target: 0 }, // Ramp down gradually and check if the system recovers
         ]
 };

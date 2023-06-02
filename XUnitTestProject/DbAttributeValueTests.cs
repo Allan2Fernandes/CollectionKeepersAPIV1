@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Xunit.Abstractions;
 using Moq;
+using Serilog.Sinks.Elasticsearch;
 
 namespace XUnitTestProject;
 
@@ -11,11 +12,16 @@ public class DbAttributeValueTests : IDisposable
 {
     public DbAttributeValueTests(ITestOutputHelper output) 
     {
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.TestOutput(output)
-            .WriteTo.File("./TestSerilogs/DbCollectionTestLogs.txt")
+        Log.Logger = new LoggerConfiguration() //new
+            .WriteTo.Console()
+            .WriteTo.File("./Serilogs/logs.txt")
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://10.176.88.60:9200"))
+            {
+                AutoRegisterTemplate = true,
+                BatchPostingLimit = 1,
+            })
             .CreateLogger();
-            
+
     }
 
     public void Dispose()

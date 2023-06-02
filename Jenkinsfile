@@ -22,7 +22,7 @@ pipeline {
 				dir('XUnitTestProject'){
 					//Unit tests
 					sh 'rm -rf coverage.cobertura.xml' // Clean up
-					sh 'dotnet add package coverlet.collector'
+					sh 'dotnet add package coverlet.collector' //needed to output a cobertura coverage report
 					sh 'dotnet add package coverlet.msbuild'
 					sh "dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile='**/*Migrations/*.cs'"
 					//Load tests
@@ -33,17 +33,18 @@ pipeline {
 					//	sh 'k6 run LoadTests/SpikeTest.js'
 					//	sh 'k6 run LoadTests/StressTest.js'
 					//}
-					//sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
-					//sh 'k6 run LoadTests/SoakTest.js'
-					//sh 'k6 run LoadTests/LoadTest.js'
-					//sh 'k6 run LoadTests/SpikeTest.js'
-					//sh 'k6 run LoadTests/StressTest.js'
+					sh 'k6 run --vus 15 --duration 10s LoadTests/CustomTest.js'
+					sh 'k6 run LoadTests/SoakTest.js'
+					sh 'k6 run LoadTests/LoadTest.js'
+					sh 'k6 run LoadTests/SpikeTest.js'
+					sh 'k6 run LoadTests/StressTest.js'
 					
 				}
             }		
+			//Code coverage API was installed manually to be able to read the cobertura format
 			post {
-				success {
-					archiveArtifacts 'XUnitTestProject/coverage.cobertura.xml'
+				success { //Forcing success because failing due to below unhealthy threshold otherwise
+					archiveArtifacts 'XUnitTestProject/coverage.cobertura.xml' 
 					publishCoverage adapters: [istanbulCoberturaAdapter(path: 'XUnitTestProject/coverage.cobertura.xml', thresholds: [
 						[failUnhealthy: true, thresholdTarget: 'Conditional', unhealthyThreshold: 80.0, unstableThreshold: 50.0]
 					])], checksName: '', sourceFileResolver: sourceFiles('NEVER_STORE')

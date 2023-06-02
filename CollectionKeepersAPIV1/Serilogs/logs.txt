@@ -184,3 +184,4 @@
 2023-05-23 14:53:39.001 +02:00 [INF] Logging in Main count = 47
 2023-05-23 14:53:39.002 +02:00 [INF] Logging in Main count = 48
 2023-05-23 14:53:39.003 +02:00 [INF] Logging in Main count = 49
+2023-05-23 16:30:42.328 +02:00 [INF] Done setting up serilog!
